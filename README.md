@@ -1,7 +1,7 @@
-Nimble SDK for PHP
+NimblePayments SDK for PHP
 ======================
 
-Nimble SDK for PHP makes it easy to access the Nimble REST API to add payment services to your e-commerce or site.
+NimblePayments SDK for PHP makes it easy to access the NimblePayments REST API to add payment services to your e-commerce or site.
 
 ## Requirements
 
@@ -15,11 +15,11 @@ Nimble SDK for PHP makes it easy to access the Nimble REST API to add payment se
 1. Download or clone this repo. It includes SDK and samples.
 2. Go to your PHP project directory. If you do not have one, just create a directory and enter in it.
 3. Unzip, and copy directory to your project location
-4. Now you are ready to include Nimble SDK in your scripts
+4. Now you are ready to include NimblePayments SDK in your scripts
 
 ## Configuration
 
-Is not necessary configure nothing. Only mention that exist a file named base/config.php with some parameters such as URL API of Nimble, but you don't need modify them.
+Is not necessary configure nothing. Only mention that exist a file named base/config.php with some parameters such as URL API of NimbleePayments, but you don't need modify them.
 Developers that want to use this library should add their specific API keys when they create a new object of NimbleAPI class.
 
 ``` php
@@ -41,7 +41,7 @@ $NimbleApi = new NimbleAPI($params);
 
 ### Environments
 
-Nimble has two environments:
+NimbleePayments has two environments:
 
 * Sandbox: testing environment
 * Real: real environment
@@ -50,8 +50,8 @@ Nimble has two environments:
 
 ### Payment
 
-See detailed information about [payments](https://github.com/nimblepayments/nimble-dev-sdk-php/wiki/Payment) with Nimble.
+See detailed information about [payments](https://github.com/nimblepayments/nimble-dev-sdk-php/wiki/Payment) with NimbleePayments.
 
 ## Test
 
-In `test` folder you will find scripts implementing a basics operations that uses Nimble SDK as payment platform.
+In `test` folder you will find scripts implementing a basics operations that uses NimbleePayments SDK as payment platform.
