@@ -50,7 +50,7 @@ NimbleePayments has two environments:
 
 ### Payment
 
-See detailed information about [payments](https://github.com/nimblepayments/nimble-dev-sdk-php/wiki/Payment) with NimbleePayments.
+See detailed information about [payments](https://github.com/nimblepayments/sdk-php/wiki/Payment) with NimbleePayments.
 
 ## Test
 
