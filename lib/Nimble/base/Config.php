@@ -26,21 +26,19 @@ class Config
 	 *
 	 * @var string OAUTH_URL constant var, with the base url to connect with Oauth
 	 */
-	const OAUTH_URL = "https://dev.nimblepayments.com/auth/tsec/token";
+	const OAUTH_URL = "https://www.nimblepayments.com/auth/tsec/token";
 
 	/**
 	 *
 	 * @var string NIMBLE_API_BASE_URLs constant var, with the base url of live enviroment to make requests
 	 */
-	//const NIMBLE_API_BASE_URL = "http://52.17.74.56:8080/nimble-mock/rest/";
-	const NIMBLE_API_BASE_URL = "https://dev.nimblepayments.com/api/";
+	const NIMBLE_API_BASE_URL = "https://www.nimblepayments.com/api/";
 
     /**
 	 *
 	 * @var string NIMBLE_API_BASE_URLs constant var, with the base url of demo enviroment to make requests
 	 */
-    //const NIMBLE_API_BASE_URL_DEMO = "http://52.17.74.56:8080/nimble-mock/rest/";
-    const NIMBLE_API_BASE_URL_DEMO = "https://dev.nimblepayments.com/sandbox-api/";
+    const NIMBLE_API_BASE_URL_DEMO = "https://www.nimblepayments.com/sandbox-api/";
 
     /**
 	 *
