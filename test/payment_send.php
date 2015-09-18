@@ -8,7 +8,6 @@ highlight_file("/info/payment_send.php");
 
 <?php
 require_once '../lib/Nimble/base/NimbleAPI.php';
-use Nimble\Base\NimbleAPI;
 
 $payment = array(
          'amount' => 1010,
@@ -26,7 +25,8 @@ $params = array(
 
 /* High Level call */
 $NimbleApi = new NimbleAPI($params);
-$response = \Nimble\Api\Payments::SendPaymentClient($NimbleApi, $payment);
+$p = new Payments();
+$response = $p->SendPaymentClient($NimbleApi, $payment);
 
 ?>
 
@@ -35,7 +35,7 @@ $response = \Nimble\Api\Payments::SendPaymentClient($NimbleApi, $payment);
 $NimbleApi = new NimbleAPI($params);
 
 $NimbleApi->setPostfields(json_encode($payment));
-$NimbleApi->uri = Nimble\Base\Config::NIMBLE_API_BASE_URL . 'payments';
+$NimbleApi->uri = Config::NIMBLE_API_BASE_URL . 'payments';
 $NimbleApi->method = 'POST';
 $response2 = $NimbleApi->rest_api_call(); 
 ?>

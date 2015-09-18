@@ -4,13 +4,11 @@
  *
  * PHP version 5.4.3
  *
- * @namespace Payments
  * @link http://github.com/...
  * @filesource
  */
-namespace Nimble\Api;
-use Exception;
-use \Base\Config\Config;
+
+require_once(__DIR__.'/../base/Config.php');
 
 /**
  * Class responsible for performing payments services.

@@ -4,11 +4,9 @@
  *
  * PHP version 5.4.3
  *
- * @namespace Base\Config
  * @link http://github.com/...
  * @filesource
  */
-namespace Nimble\Base;
 
 /**
  * Class Config
@@ -20,7 +18,7 @@ class Config
 {
 
     const SDK_NAME = 'Nimble-PHP-SDK';
-    const SDK_VERSION = '1.0';
+    const SDK_VERSION = '1.1';
 
     /**
 	 *

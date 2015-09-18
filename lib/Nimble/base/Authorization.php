@@ -8,9 +8,7 @@
  * @link http://github.com/...
  * @filesource
  */
-namespace Nimble\Base;
-use Exception;
-use \Nimble\Base\Config;
+require_once 'Config.php';
 
 /**
  * Implements the Authorization header of the request to perform the identification correctly according to the type of

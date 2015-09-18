@@ -4,14 +4,10 @@
  *
  * PHP version 5.4.3
  *
- * @namespace Base
  * @link http://github.com/...
  * @filesource
  */
-namespace Nimble\Base;
-use Exception;
-use \Nimble\Base\Config;
-
+require_once 'Config.php';
 require_once 'NimbleAPILibrary.php';
 
 /**
@@ -221,7 +217,7 @@ class NimbleAPI
      * Method setPostfields
      *
      * @param string $postfields
-     * @return \Base\NimbleAPI
+     * @return NimbleAPI object
      */
     public function setPostfields ($postfields)
     {
@@ -244,7 +240,7 @@ class NimbleAPI
     /**
      * Method getPostfields
      *
-     * @return \Base\NimbleAPI
+     * @return NimbleAPI object
      */
     public function getPostfields ()
     {
@@ -266,7 +262,7 @@ class NimbleAPI
      * Method setLastStatusCode
      *
      * @param unknown $code
-     * @return \Base\NimbleAPI
+     * @return NimbleAPI object
      */
     public function setLastStatusCode ($code)
     {
@@ -288,7 +284,7 @@ class NimbleAPI
      * Method setAttemps
      *
      * @param int $attemps.
-     * @return \Base\NimbleAPI. Modifies the number of attempts Connection
+     * @return NimbleAPI object. Modifies the number of attempts Connection
      */
     public function setAttemps ($attemps)
     {

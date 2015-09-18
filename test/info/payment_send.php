@@ -6,7 +6,6 @@ Send payment - /payments
 <?php
 //require_once 'PATH_TO_SDK/lib/Nimble/base/NimbleAPI.php';
 require_once '../lib/Nimble/base/NimbleAPI.php';
-use Nimble\Base\NimbleAPI;
 
 $payment = array(
         'amount' => 1010,
@@ -30,7 +29,8 @@ $params = array(
  */
 
 $NimbleApi = new NimbleAPI($params);
-$response = Nimble\Api\Payments::SendPaymentClient($NimbleApi, $payment);
+$p = new Payments();
+$response = $p->SendPaymentClient($NimbleApi, $payment);
 
 ?>
 
@@ -50,7 +50,7 @@ $NimbleApi->authorization->buildAuthorizationHeader();
 $NimbleApi->rest_api_call();
 
 $NimbleApi->setPostfields(json_encode($payment));
-$NimbleApi->uri = Nimble\Base\Config::NIMBLE_API_BASE_URL . 'payments';
+$NimbleApi->uri = Config::NIMBLE_API_BASE_URL . 'payments';
 $NimbleApi->method = 'POST';
 $response2 = $NimbleApi->rest_api_call(); 
 ?>

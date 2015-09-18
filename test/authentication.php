@@ -7,7 +7,6 @@ highlight_file("/info/authentication.php");
 <br />
 <?php
 require_once '../lib/Nimble/base/NimbleAPI.php';
-use Nimble\Base\NimbleAPI;
 
 $params = array(
         'clientId' => '729DFCD7A2B4643A0DA3D4A7E537FC6E',

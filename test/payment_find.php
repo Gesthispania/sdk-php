@@ -9,7 +9,6 @@ highlight_file("/info/payment_find.php");
 <?php
 /* High Level call */
 require_once '../lib/Nimble/base/NimbleAPI.php';
-use Nimble\Base\NimbleAPI;
 
 $params = array(
         'clientId' => '729DFCD7A2B4643A0DA3D4A7E537FC6E',
@@ -20,7 +19,8 @@ $params = array(
 $IdPayment = 541;
 
 $NimbleApi = new NimbleAPI($params);
-$response = Nimble\Api\Payments::FindPaymentClient($NimbleApi, $IdPayment);
+$p = new Payments();
+$response = $p->FindPaymentClient($NimbleApi, $IdPayment);
 
 ?>
 --------------
@@ -28,7 +28,7 @@ $response = Nimble\Api\Payments::FindPaymentClient($NimbleApi, $IdPayment);
 
 /* Low Level call */
 $NimbleApi = new NimbleAPI($params);
-$NimbleApi->uri = Nimble\Base\Config::NIMBLE_API_BASE_URL .'payments/'.$IdPayment;
+$NimbleApi->uri = Config::NIMBLE_API_BASE_URL .'payments/'.$IdPayment;
 $NimbleApi->method = 'GET';
 $response2 = $NimbleApi->rest_api_call();
 
