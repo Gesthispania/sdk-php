@@ -4,11 +4,9 @@
  *
  * PHP version 5.4.3
  *
- * @namespace Base
  * @link http://github.com/...
  * @filesource
  */
-namespace Nimble\Base;
 
 require_once 'Config.php';
 require_once 'Authorization.php';

@@ -4,7 +4,6 @@ Find payment - /payments/{id}
 
 <?php
 require_once '../lib/Nimble/base/NimbleAPI.php';
-use Nimble\Base\NimbleAPI;
 
 $params = array(
         'clientId' => 'REPLACEME_DEMO_CLIENT_ID',
@@ -21,7 +20,8 @@ $IdPayment = 12345;
  */
 
 $NimbleApi = new NimbleAPI($params);
-$response = Nimble\Api\Payments::FindPaymentClient($NimbleApi, $IdPayment);
+$p = new Payments();
+$response = $p->FindPaymentClient($NimbleApi, $IdPayment);
 
 ?>
 
@@ -34,13 +34,13 @@ $response = Nimble\Api\Payments::FindPaymentClient($NimbleApi, $IdPayment);
  */
 
 $NimbleApi = new NimbleAPI($params);
-$NimbleApi->uri_oauth  = Nimble\Base\Config::OAUTH_URL;
+$NimbleApi->uri_oauth  = Config::OAUTH_URL;
 $NimbleApi->setGetfields('?grant_type=client_credentials&scope=PAYMENT');
 $NimbleApi->method = 'POST';
 $NimbleApi->authorization->buildAuthorizationHeader();
 $NimbleApi->rest_api_call();
 
-$NimbleApi->uri = Nimble\Base\Config::NIMBLE_API_BASE_URL . 'payments/'.$IdPayment;
+$NimbleApi->uri = Config::NIMBLE_API_BASE_URL . 'payments/'.$IdPayment;
 $NimbleApi->method = 'GET';
 $response = $NimbleApi->rest_api_call();
 

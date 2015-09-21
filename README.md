@@ -5,7 +5,7 @@ NimblePayments SDK for PHP makes it easy to access the NimblePayments REST API t
 
 ## Requirements
 
-* PHP 5.3 or above
+* PHP 5.2 or above
 * curl & json extensions must be enabled
 
 ## Installation
@@ -24,7 +24,6 @@ Developers that want to use this library should add their specific API keys when
 
 ``` php
 require_once './nimble-dev-sdk-php-master/lib/Nimble/base/NimbleAPI.php';
-use Nimble\Base\NimbleAPI;
 
 $params = array(
         'clientId' => '729DFCD7A2B4643A0DA3D4A7E537FC6E',

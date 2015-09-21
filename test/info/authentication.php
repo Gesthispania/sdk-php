@@ -4,7 +4,6 @@ Authentication:
 ---------------
 <?php
 require_once '../lib/Nimble/base/NimbleAPI.php';
-use Nimble\Base\NimbleAPI;
 
 $params = array(
         'clientId' => 'REPLACEME_DEMO_CLIENT_SECRET',
