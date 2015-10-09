@@ -8,7 +8,7 @@
  * @link http://github.com/...
  * @filesource
  */
-require_once 'Config.php';
+require_once 'ConfigSDK.php';
 
 /**
  * Implements the Authorization header of the request to perform the identification correctly according to the type of
@@ -237,7 +237,7 @@ class Authorization
             throw new Exception('$NimbleApi parameter is empty');
         }
         try {
-            $NimbleApi->uri_oauth = Config::OAUTH_URL;
+            $NimbleApi->uri_oauth = ConfigSDK::OAUTH_URL;
             $NimbleApi->setGetfields('?grant_type=client_credentials&scope=PAYMENT');
             $NimbleApi->method = 'POST';
             $NimbleApi->authorization->buildAuthorizationHeader();

@@ -8,7 +8,7 @@
  * @filesource
  */
 
-require_once 'Config.php';
+require_once 'ConfigSDK.php';
 require_once 'Authorization.php';
 require_once dirname(__FILE__).'/../api/Payments.php';
 

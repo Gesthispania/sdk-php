@@ -43,14 +43,14 @@ $response = $p->SendPaymentClient($NimbleApi, $payment);
  */
 
 $NimbleApi = new NimbleAPI($params);
-$NimbleApi->uri_oauth  = Nimble\Base\Config::OAUTH_URL;
+$NimbleApi->uri_oauth  = ConfigSDK::OAUTH_URL;
 $NimbleApi->setGetfields('?grant_type=client_credentials&scope=PAYMENT');
 $NimbleApi->method = 'POST';
 $NimbleApi->authorization->buildAuthorizationHeader();
 $NimbleApi->rest_api_call();
 
 $NimbleApi->setPostfields(json_encode($payment));
-$NimbleApi->uri = Config::NIMBLE_API_BASE_URL . 'payments';
+$NimbleApi->uri = ConfigSDK::NIMBLE_API_BASE_URL . 'payments';
 $NimbleApi->method = 'POST';
 $response2 = $NimbleApi->rest_api_call(); 
 ?>

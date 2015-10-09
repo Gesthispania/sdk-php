@@ -19,7 +19,7 @@ NimblePayments SDK for PHP makes it easy to access the NimblePayments REST API t
 
 ## Configuration
 
-Is not necessary configure nothing. Only mention that exist a file named base/config.php with some parameters such as URL API of NimbleePayments, but you don't need modify them.
+Is not necessary configure nothing. Only mention that exist a file named base/ConfigSDK.php with some parameters such as URL API of NimbleePayments, but you don't need modify them.
 Developers that want to use this library should add their specific API keys when they create a new object of NimbleAPI class.
 
 ``` php
