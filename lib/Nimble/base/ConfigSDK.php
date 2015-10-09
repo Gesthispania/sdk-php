@@ -9,16 +9,16 @@
  */
 
 /**
- * Class Config
+ * Class ConfigSDK
  * Placeholder for Nimble Config
  *
  * @package Base\Core
  */
-class Config
+class ConfigSDK
 {
 
     const SDK_NAME = 'Nimble-PHP-SDK';
-    const SDK_VERSION = '1.1';
+    const SDK_VERSION = '1.2';
 
     /**
 	 *

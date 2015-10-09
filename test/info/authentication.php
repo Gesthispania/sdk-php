@@ -14,8 +14,8 @@ $params = array(
 /**
  * High & Low level call.
  *
- * @param PATH_TO_SDK, Base\Config\CLIENT_ID and Base\Config\CLIENT_SECRET must be changed credential values on
- *            client/base/Config.php.
+ * @param PATH_TO_SDK, Base\ConfigSDK\CLIENT_ID and Base\ConfigSDK\CLIENT_SECRET must be changed credential values on
+ *            client/base/ConfigSDK.php.
  */
 
 $NimbleApi = new NimbleAPI($params);

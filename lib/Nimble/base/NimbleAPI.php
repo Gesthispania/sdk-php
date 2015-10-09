@@ -7,7 +7,7 @@
  * @link http://github.com/...
  * @filesource
  */
-require_once 'Config.php';
+require_once 'ConfigSDK.php';
 require_once 'NimbleAPILibrary.php';
 
 /**
@@ -71,7 +71,7 @@ class NimbleAPI
      *
      * @var int $ max_attemps (maximum number of attempts at connections)
      */
-    private $max_attemps = Config::MAX_ATTEMPS;
+    private $max_attemps = ConfigSDK::MAX_ATTEMPS;
 
     /**
      * Construct method. Start the object NimbleApi. Start the Object Authorization too.
@@ -94,9 +94,9 @@ class NimbleAPI
         }
         try {
             if( $settings['mode'] == 'real') {
-                $this->uri = Config::NIMBLE_API_BASE_URL;
+                $this->uri = ConfigSDK::NIMBLE_API_BASE_URL;
             } else {
-                $this->uri = Config::NIMBLE_API_BASE_URL_DEMO;
+                $this->uri = ConfigSDK::NIMBLE_API_BASE_URL_DEMO;
             }
 
             $this->authorization = new authorization();
@@ -143,7 +143,7 @@ class NimbleAPI
                     CURLOPT_CUSTOMREQUEST => $this->method, // GET POST PUT PATCH DELETE
                     CURLOPT_HEADER => false,
                     CURLOPT_RETURNTRANSFER => true,
-                    CURLOPT_TIMEOUT => Config::TIMEOUT
+                    CURLOPT_TIMEOUT => ConfigSDK::TIMEOUT
             );
 
             if (! is_null($postfields)) {

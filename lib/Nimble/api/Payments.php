@@ -8,7 +8,7 @@
  * @filesource
  */
 
-require_once(__DIR__.'/../base/Config.php');
+require_once(__DIR__.'/../base/ConfigSDK.php');
 
 /**
  * Class responsible for performing payments services.

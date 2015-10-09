@@ -35,7 +35,7 @@ $response = $p->SendPaymentClient($NimbleApi, $payment);
 $NimbleApi = new NimbleAPI($params);
 
 $NimbleApi->setPostfields(json_encode($payment));
-$NimbleApi->uri = Config::NIMBLE_API_BASE_URL . 'payments';
+$NimbleApi->uri = ConfigSDK::NIMBLE_API_BASE_URL . 'payments';
 $NimbleApi->method = 'POST';
 $response2 = $NimbleApi->rest_api_call(); 
 ?>

@@ -28,7 +28,7 @@ $response = $p->FindPaymentClient($NimbleApi, $IdPayment);
 
 /* Low Level call */
 $NimbleApi = new NimbleAPI($params);
-$NimbleApi->uri = Config::NIMBLE_API_BASE_URL .'payments/'.$IdPayment;
+$NimbleApi->uri = ConfigSDK::NIMBLE_API_BASE_URL .'payments/'.$IdPayment;
 $NimbleApi->method = 'GET';
 $response2 = $NimbleApi->rest_api_call();
 

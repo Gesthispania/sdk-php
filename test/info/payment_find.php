@@ -34,13 +34,13 @@ $response = $p->FindPaymentClient($NimbleApi, $IdPayment);
  */
 
 $NimbleApi = new NimbleAPI($params);
-$NimbleApi->uri_oauth  = Config::OAUTH_URL;
+$NimbleApi->uri_oauth  = ConfigSDK::OAUTH_URL;
 $NimbleApi->setGetfields('?grant_type=client_credentials&scope=PAYMENT');
 $NimbleApi->method = 'POST';
 $NimbleApi->authorization->buildAuthorizationHeader();
 $NimbleApi->rest_api_call();
 
-$NimbleApi->uri = Config::NIMBLE_API_BASE_URL . 'payments/'.$IdPayment;
+$NimbleApi->uri = ConfigSDK::NIMBLE_API_BASE_URL . 'payments/'.$IdPayment;
 $NimbleApi->method = 'GET';
 $response = $NimbleApi->rest_api_call();
 
