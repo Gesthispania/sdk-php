@@ -1,0 +1,10 @@
+{
+    "name": "acasado86/sdk-php",
+    "description": "NimblePayments SDK for PHP",
+    "keywords": ["nimble", "payments"],
+    "homepage": "https://github.com/acasado86/sdk-php.git",
+    "type": "library",
+    "require": {
+        "php": ">=5.3.0"
+    }
+}
