@@ -81,9 +81,6 @@ class NimbleAPI
      */
     public function __construct (array $settings)
     {
-        if (! in_array('curl', get_loaded_extensions())) {
-            throw new Exception('You need to install cURL, see: http://curl.haxx.se/docs/install.html');
-        }
         
         if ( empty($settings['clientId']) || empty($settings['clientSecret'])) {
             throw new Exception('secretKey or clientId cannot be null or empty!');
@@ -118,27 +115,29 @@ class NimbleAPI
      */
     public function rest_api_call ()
     {
+        if (! in_array('curl', get_loaded_extensions())) {
+            throw new Exception('You need to install cURL, see: http://curl.haxx.se/docs/install.html');
+        }
+        
         try {
             if (! isset($curl_connect))
                 $curl_connect = curl_init();
             
-            $this->authorization->addHeader('Content-Type', 'application/json');
-            $this->authorization->addHeader('Accept', 'application/json');
             
-            $getfields = $this->getGetfields();
             $postfields = $this->getPostfields();
+            $header = $this->getHeaders();
+            //Prepare header
+            $curl_header = array();
+            foreach ($header as $param => $value) {
+                if ($value != "") {
+                    array_push($curl_header, $param . ': ' . $value);
+                }
+            }
             
-            $this->authorization->buildAccessHeader();
-            $header = $this->authorization->buildHeader();
-            
-            if(!empty($this->uri_oauth)){
-                $url = $this->uri_oauth;
-                $this->uri_oauth = "";
-            } else
-                $url = $this->uri;
+            $url = $this->getApiUrl();
 
             $options = array(
-                    CURLOPT_HTTPHEADER => $header,
+                    CURLOPT_HTTPHEADER => $curl_header,
                     CURLOPT_URL => $url,
                     CURLOPT_CUSTOMREQUEST => $this->method, // GET POST PUT PATCH DELETE
                     CURLOPT_HEADER => false,
@@ -148,10 +147,6 @@ class NimbleAPI
 
             if (! is_null($postfields)) {
                 $options[CURLOPT_POSTFIELDS] = $postfields;
-            } else {
-                if ($getfields !== '') {
-                    $options[CURLOPT_URL] .= $getfields;
-                }
             }
             
             curl_setopt_array($curl_connect, ($options));
@@ -278,6 +273,43 @@ class NimbleAPI
     public function getAttemps ()
     {
         return $this->attemps;
+    }
+    
+    /**
+     * Method getHeaders
+     * @return array. Returns the header to the api rest call
+     */
+    public function getHeaders ()
+    {
+        $this->authorization->addHeader('Content-Type', 'application/json');
+        $this->authorization->addHeader('Accept', 'application/json');
+
+        $this->authorization->buildAccessHeader();
+        $header = $this->authorization->getHeader();
+
+        return $header;
+    }
+    
+    /**
+     * Methos getApiUrl
+     * @return string. Return the url to the api rest call
+     */
+    function getApiUrl(){
+        if(!empty($this->uri_oauth)){
+            $url = $this->uri_oauth;
+            $this->uri_oauth = "";
+        } else
+            $url = $this->uri;
+        
+        //Set GET params
+        if (is_null($this->postfields)){
+            $getfields = $this->getGetfields();
+            if ($getfields !== '') {
+                $url .= $getfields;
+            }
+        }
+        
+       return $url;
     }
 
     /**
