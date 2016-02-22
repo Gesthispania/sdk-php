@@ -72,6 +72,12 @@ class NimbleAPI
      * @var int $ max_attemps (maximum number of attempts at connections)
      */
     private $max_attemps = ConfigSDK::MAX_ATTEMPS;
+    
+    /**
+     * 
+     * @var bool $ use_curl (if need curl_lib to work)
+     */
+    protected $use_curl = true;
 
     /**
      * Construct method. Start the object NimbleApi. Start the Object Authorization too.
@@ -81,7 +87,7 @@ class NimbleAPI
      */
     public function __construct (array $settings)
     {
-        if (! in_array('curl', get_loaded_extensions())) {
+        if ( $this->use_curl && ! in_array('curl', get_loaded_extensions())) {
             throw new Exception('You need to install cURL, see: http://curl.haxx.se/docs/install.html');
         }
         

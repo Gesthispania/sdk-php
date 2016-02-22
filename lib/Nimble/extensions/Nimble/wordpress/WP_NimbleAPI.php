@@ -16,6 +16,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 class WP_NimbleAPI extends NimbleAPI{
     
     /**
+     * 
+     * @var bool $ use_curl (if need curl_lib to work)
+     */
+    protected $use_curl = false;
+    
+    /**
      * Method responsible for making Rest API calls @ Return $response from rest api.
      *
      * @return $response
