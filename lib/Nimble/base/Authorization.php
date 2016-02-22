@@ -67,7 +67,7 @@ class Authorization
      */
     public function addHeader ($param, $content)
     {
-        $this->header[$param] = $param . ': ' . $content;
+        $this->header[$param] = $content;
     }
 
     /**
@@ -143,12 +143,22 @@ class Authorization
     public function buildHeader ()
     {
         $header = array();
-        foreach ($this->header as $value) {
+        foreach ($this->header as $param => $value) {
             if ($value != "") {
-                array_push($header, $value);
+                array_push($header, $param . ': ' . $value);
             }
         }
         return $header;
+    }
+    
+    /**
+     * Method getHeader. Returns an array of header parameters.
+     *
+     * @return multitype:
+     */
+    public function getHeader ()
+    {
+        return $this->header;
     }
 
     /**
