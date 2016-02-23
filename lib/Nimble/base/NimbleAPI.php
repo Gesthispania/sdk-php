@@ -59,19 +59,19 @@ class NimbleAPI
      *
      * @var string $ laststatuscode (contain the last code for the last request: 401, 200, 500)
      */
-    private $laststatuscode;
+    protected $laststatuscode;
 
     /**
      *
      * @var int $ attemps (integer contain attempts numbers to a service)
      */
-    private $attemps = 0;
+    protected $attemps = 0;
 
     /**
      *
      * @var int $ max_attemps (maximum number of attempts at connections)
      */
-    private $max_attemps = ConfigSDK::MAX_ATTEMPS;
+    protected $max_attemps = ConfigSDK::MAX_ATTEMPS;
     
     /**
      * 
