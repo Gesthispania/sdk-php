@@ -1,7 +1,7 @@
-NimblePayments SDK for PHP
+The NimblePayments SDK for PHP
 ======================
 
-NimblePayments SDK for PHP makes it easy to access the NimblePayments REST API to add payment services to your e-commerce or site.
+The NimblePayments SDK for PHP makes it easy to add payment services to your e-commerce or site access. It connects your site to the NimblePayments REST API directly.
 
 ## Requirements
 
@@ -12,15 +12,16 @@ NimblePayments SDK for PHP makes it easy to access the NimblePayments REST API t
 
 ### From source
 
-1. Download or clone this repo. It includes SDK and samples.
-2. Go to your PHP project directory. If you do not have one, just create a directory and enter in it.
-3. Unzip, and copy directory to your project location
+1. Download or clone this repo. You will obtain a file called "sdk-php-master.zip". It includes the SDK and several samples.
+2. Create a directory inside your PHP project directory where to store NimblePayments SDK files.
+3. Unzip "sdk-php-master.zip" and copy all files in the dicertory you have created in the previous step.
 4. Now you are ready to include NimblePayments SDK in your scripts
 
 ## Configuration
 
-Is not necessary configure nothing. Only mention that exist a file named base/ConfigSDK.php with some parameters such as URL API of NimbleePayments, but you don't need modify them.
-Developers that want to use this library should add their specific API keys when they create a new object of NimbleAPI class.
+The file named base/ConfigSDK.php includes some configuration parameters by default that do not need to be modified.
+
+In order to create a new object of a NimbleAPI's class, the API keys must be included in the array "params"
 
 ``` php
 require_once './nimble-dev-sdk-php-master/lib/Nimble/base/NimbleAPI.php';
@@ -34,16 +35,7 @@ $params = array(
 $NimbleApi = new NimbleAPI($params);
 ```
 
-> Now we are ready to make operations such as send payments, get payments, etc. Next will see a sample of send payment. 
-
-> In addition, the parameter 'mode' have two possible values: sandbox or real. 'Sandbox' is used to call to the demo environment for make tests and 'real' is for call to real environment.
-
-### Environments
-
-NimbleePayments has two environments:
-
-* Sandbox: testing environment
-* Real: real environment
+> The parameter 'mode' is set to define the environment and has two possible values: sandbox or real. 'Sandbox' is used in the demo environment to make tests and 'real' must be set to work in the real environment. 
 
 ## Usage
 
