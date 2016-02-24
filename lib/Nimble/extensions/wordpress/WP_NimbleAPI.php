@@ -55,14 +55,17 @@ class WP_NimbleAPI extends NimbleAPI{
             $options['sslverify'] = false;
             
             $result = $request->request( $url, $options );
-            
-            $json = $result['body'];
-            
-            $response = json_decode($json, true);
-                      
-            $response_status = $result['response']['code'];
+            if (!is_wp_error($result)){
+                $json = $result['body'];
 
-            $this->setLastStatusCode($response_status);
+                $response = json_decode($json, true);
+
+                $response_status = $result['response']['code'];
+
+                $this->setLastStatusCode($response_status);
+            } else {
+                $this->setLastStatusCode(0);
+            }
             $this->getLastStatusCode() == 200 ? $this->setAttemps(0) : $this->attemps ++;
             
             // getLastStatusCode() return 0 in timeout
