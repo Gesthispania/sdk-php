@@ -1,0 +1,10 @@
+{
+    "name": "nimblepayments/sdk-php",
+    "description": "NimblePayments SDK for PHP",
+    "keywords": ["nimble", "payments"],
+    "homepage": "https://github.com/nimblepayments/sdk-php.git",
+    "type": "library",
+    "require": {
+        "php": ">=5.2.0"
+    }
+}
