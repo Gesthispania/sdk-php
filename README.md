@@ -1,7 +1,14 @@
-The NimblePayments SDK for PHP
+NimblePayments SDK for PHP
 ======================
 
-The NimblePayments SDK for PHP makes it easy to add payment services to your e-commerce or site access. It connects your site to the NimblePayments REST API directly.
+The NimblePayments SDK for PHP makes it easy to add payment services to your e-commerce. It connects your site to the NimblePayments API directly.
+
+## Release notes
+
+# 1.0
+
+- First live release
+- It includes the single payment service 
 
 ## Requirements
 
