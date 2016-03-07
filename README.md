@@ -5,7 +5,7 @@ The NimblePayments SDK for PHP makes it easy to add payment services to your e-c
 
 ## Release notes
 
-# 1.0
+### 1.0
 
 - First live release
 - It includes the single payment service 
