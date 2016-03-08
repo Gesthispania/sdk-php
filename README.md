@@ -58,7 +58,7 @@ Client information refers to an array called “params” that includes client�
 
 - Client’s credentials consist of a clientid and clientsecret. Their value is the  `Api_Client_Id` and the `Client_Secret` codes  generated when creating a Payment gateway in the Nimble dashboard.
 - `mode` parameter defines the environment in which you want to work. It has two possible values: 
-         - Sandbox. It is used in the demo environment to make tests
+         - Sandbox. It is used in the demo environment to make tests.
          - Real. It is used to work in the real environment.
 
 ## Example of a Payment generation
