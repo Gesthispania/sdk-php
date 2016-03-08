@@ -97,3 +97,6 @@ $response = Payments::SendPaymentClient($NimbleApi, $payment);
 ## Test
 
 In `test` folder you will find scripts implementing a basics operations that uses NimbleePayments SDK as payment platform.
+
+## Documentation
+Please see [Apiary](http://docs.nimblepublicapi.apiary.io/#) for up-to-date documentation.
