@@ -46,7 +46,7 @@ use Nimble\Api\Payments;
 // build an array with payment information
 $payment = array(
          'amount' => 1010,
-	 'currency' => 'EUR',
+         'currency' => 'EUR',
          'customerData' => 'idSample12345',
          'paymentSuccessUrl' => 'https://my-commerce.com/payments/success',
          'paymentErrorUrl' => 'https://my-commerce.com/payments/error'
