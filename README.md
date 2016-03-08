@@ -30,13 +30,13 @@ Once you have completed the Installation and configuration processes, you are re
 In order to execute a payment, you will need to create a `NimbleApi` instance with payment and client information and use the `SendPaymentClient` method in the class `Payments` to send the payment
 
 ### Payment’s information
-A "`payment`" term refers to an object that contains all the data needed in order to execute a payment. This object is an array that must be filled with the following parameters:
+A `payment` term refers to an object that contains all the data needed in order to execute a payment. This object is an array that must be filled with the following parameters:
 
-- "`amount`": it refers to the amount that has to be paid in cents avoiding the decimal digits. The real amount has to be multiplied by 100.
-- "`currency`": it refers to the payment currency. It follows the currency ISO 4217 code
-- "`customerData`": it refers to the merchant's sale identification. Example: The Prestashop`s order id.
-- "`paymentSuccessUrl`": it refers to the callback URL to be redirected when the payment finishes successfully.
-- "`paymentErrorUrl`": it refers to the callback URL to be redirected when the payment finishes with an error.
+- `amount`: it refers to the amount that has to be paid in cents avoiding the decimal digits. The real amount has to be multiplied by 100.
+- `currency`: it refers to the payment currency. It follows the currency ISO 4217 code
+- `customerData`: it refers to the merchant's sale identification. Example: The Prestashop`s order id.
+- `paymentSuccessUrl`: it refers to the callback URL to be redirected when the payment finishes successfully.
+- `paymentErrorUrl`: it refers to the callback URL to be redirected when the payment finishes with an error.
 
 ```php
 require_once './nimble-sdk/lib/Nimble/base/NimbleAPI.php';
@@ -57,9 +57,9 @@ $payment = array(
 Client information refers to an array called “params” that includes client’s credentials and ‘mode’ parameters.
 
 - Client’s credentials consist of a clientid and clientsecret. Their value is the  `Api_Client_Id` and the `Client_Secret` codes  generated when creating a Payment gateway in the Nimble dashboard.
-- `mode` parameter defines the environment in which you want to work. It has two possible values: 
-         - Sandbox. It is used in the demo environment to make tests.
-         - Real. It is used to work in the real environment.
+- `mode` parameter defines the environment in which you want to work. It has two possible values:
+    - Sandbox. It is used in the demo environment to make tests.
+    - Real. It is used to work in the real environment.
 
 ## Example of a Payment generation
 To generate a Payment you will need to execute the following steps:
