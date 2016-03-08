@@ -16,9 +16,9 @@ The NimblePayments SDK for PHP makes it easy to add payment services to your e-c
 ## Installation
 The SDK zip from the GitHub repository contains the NimblePayments SDK for PHP tool, including all its dependencies. Follow the next steps to install it:
 
-1- Download the latest/desired release zip. You will obtain a file called "_sdk-php-master.zip_" which includes the SDK and several samples.
-2- Create a new folder inside your PHP project directory to store NimblePayments SDK files.
-3- Unzip "_sdk-php-master.zip_" and copy all files in the folder you have just created in the previous step.
+1. Download the latest/desired release zip. You will obtain a file called "_sdk-php-master.zip_" which includes the SDK and several samples.
+2. Create a new folder inside your PHP project directory to store NimblePayments SDK files.
+3. Unzip "_sdk-php-master.zip_" and copy all files in the folder you have just created in the previous step.
 
 ## Configuration
 The file named __base/ConfigSDK.php__ includes some configuration parameters by default that do not need to be modified.
