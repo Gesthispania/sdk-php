@@ -6,29 +6,25 @@ The NimblePayments SDK for PHP makes it easy to add payment services to your e-c
 ## Release notes
 
 ### 1.0
-
 - First live release
 - It includes the single payment service 
 
 ## Requirements
-
 * PHP 5.2 or above
 * curl & json extensions must be enabled
 
 ## Installation
+The SDK zip from the GitHub repository contains the NimblePayments SDK for PHP tool, including all its dependencies. Follow the next steps to install it:
 
-### From source
-
-1. Download or clone this repo. You will obtain a file called "sdk-php-master.zip". It includes the SDK and several samples.
-2. Create a directory inside your PHP project directory where to store NimblePayments SDK files.
-3. Unzip "sdk-php-master.zip" and copy all files in the dicertory you have created in the previous step.
-4. Now you are ready to include NimblePayments SDK in your scripts
+1- Download the latest/desired release zip. You will obtain a file called "_sdk-php-master.zip_" which includes the SDK and several samples.
+2- Create a new folder inside your PHP project directory to store NimblePayments SDK files.
+3- Unzip "_sdk-php-master.zip_" and copy all files in the folder you have just created in the previous step.
 
 ## Configuration
+The file named __base/ConfigSDK.php__ includes some configuration parameters by default that do not need to be modified.
 
-The file named base/ConfigSDK.php includes some configuration parameters by default that do not need to be modified.
-
-In order to create a new object of a NimbleAPI's class, the API keys must be included in the array "params"
+## Working with the SDK
+Once you have completed the Installation and configuration processes, you are ready to generate a payment.
 
 ``` php
 require_once './nimble-dev-sdk-php-master/lib/Nimble/base/NimbleAPI.php';
