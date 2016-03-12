@@ -228,7 +228,7 @@ class Authorization
      */
     public function getToken_Type ()
     {
-        return $this->access_token;
+        return $this->token_type;
     }
 
     /**
