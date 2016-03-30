@@ -40,13 +40,7 @@ class ConfigSDK
 
     /**
 	 *
-	 * @var int MAX_ATTEMPS constant var
-	 */
-    const MAX_ATTEMPS = 3;
-
-    /**
-	 *
 	 * @var int TIMEOUT (seconds) constant var
 	 */
-    const TIMEOUT = 10;
+    const TIMEOUT = 30;
 }

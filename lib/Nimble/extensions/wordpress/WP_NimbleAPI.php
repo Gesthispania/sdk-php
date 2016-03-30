@@ -66,15 +66,7 @@ class WP_NimbleAPI extends NimbleAPI{
             } else {
                 $this->setLastStatusCode(0);
             }
-            $this->getLastStatusCode() == 200 ? $this->setAttemps(0) : $this->attemps ++;
-            
-            // getLastStatusCode() return 0 in timeout
-            if (($this->getLastStatusCode() == 401 or $this->getLastStatusCode() == 403 or $this->getLastStatusCode() == 0)  and
-                $this->getAttemps() <= $this->max_attemps) {
-                $response = $this->rest_api_call();
-            }
 
-            $this->setAttemps(0);
             if ($this->authorization->is_preauthorized_request) {
                 $this->authorization->setAccessParams($response);
             }
