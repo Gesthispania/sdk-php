@@ -1,29 +1,29 @@
 <?php
-/**  
- * Nimble-API-PHP : API v1.0
+/**
+ * Nimble-API-PHP : API v1.2
  *
- * PHP version 5.4.3
+ * PHP version 5.4.2
  *
- * @link http://github.com/...
+ * @link https://github.com/nimblepayments/sdk-php
  * @filesource
  */
 
-require_once(__DIR__.'/../base/ConfigSDK.php');
+require_once(__DIR__.'/../base/NimbleAPIConfig.php');
 
 /**
  * Class responsible for performing payments services.
  */
-class Payments
+class NimbleAPIPayments
 {
 
     /**
-     * Method SendPaymentClient
+     * Method sendPaymentClient
      *
      * @param object $NimbleApi
      * @param array $context
      * @return array
      */
-    public static function SendPaymentClient ($NimbleApi, $context)
+    public static function sendPaymentClient($NimbleApi, $context)
     {
         
         if (empty($NimbleApi)) {
@@ -35,13 +35,12 @@ class Payments
     
         try {
             $NimbleApi->setPostfields(json_encode($context));
-            $NimbleApi->uri .= 'payments';
+            $NimbleApi->uri = 'payments';
             $NimbleApi->method = 'POST';
-            $response = $NimbleApi->rest_api_call();
+            $response = $NimbleApi->restApiCall();
             return $response;
-        }
-        catch (Exception $e) {
-            throw new Exception('Error in SendPaymentClient: ' . $e);
+        } catch (Exception $e) {
+            throw new Exception('Error in sendPaymentClient: ' . $e);
         }
     }
 
@@ -51,18 +50,17 @@ class Payments
      * @param object $NimbleApi
      * @return unknown
      */
-     public static function FindPaymentClient ($NimbleApi, $IdPayment)
+    public static function findPaymentClient($NimbleApi, $IdPayment)
     {
-        if (empty($NimbleApi) || empty($IdPayment) ) {
+        if (empty($NimbleApi) || empty($IdPayment)) {
             throw new Exception('$NimbleApi parameter is empty.');
         }
         try {
             $NimbleApi->uri .= 'payments/'.$IdPayment;
             $NimbleApi->method = 'GET';
-            $response = $NimbleApi->rest_api_call();
+            $response = $NimbleApi->restApiCall();
             return $response;
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             throw new Exception('Error in ExecutePaymentClient: ' . $e);
         }
     }

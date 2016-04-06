@@ -1,14 +1,15 @@
 <?php
-/**  
- * Nimble-API-PHP : API v1.0
+/**
+ * Nimble-API-PHP : API v1.2
  *
- * PHP version 5.4.3
+ * PHP version 5.4.2
  *
- * @link http://github.com/...
+ * @link https://github.com/nimblepayments/sdk-php
  * @filesource
  */
-require_once 'ConfigSDK.php';
-require_once 'NimbleAPILibrary.php';
+
+require_once 'NimbleAPIConfig.php';
+require_once 'NimbleAPIAuthorization.php';
 
 /**
  * NimbleAPI is the api that does all the connection mechanism to each of the requests. It is primarily responsible for
@@ -16,6 +17,13 @@ require_once 'NimbleAPILibrary.php';
  */
 class NimbleAPI
 {
+
+    /**
+     * @source
+     *
+     * @var string $ uri. (Url service api rest)
+     */
+    public $base_uri;
 
     /**
      * @source
@@ -30,6 +38,13 @@ class NimbleAPI
      * @var string $ uri. (Url service oauth)
      */
     public $uri_oauth;
+
+    /**
+     * @source
+     *
+     * @var string $ oauth_code. (oAuth code for access token request)
+     */
+    public $oauth_code;
 
     /**
      *
@@ -68,40 +83,84 @@ class NimbleAPI
     protected $use_curl = true;
 
     /**
-     * Construct method. Start the object NimbleApi. Start the Object Authorization too.
+     * Construct method. Start the object NimbleApi. Start the Object NimbleAPIAuthorization too.
      *
      * @param array $settings. (must contain at least clientId and clientSecret vars)
      * @throws Exception. (Return exception if not exist clientId or clientSecret)
      */
-    public function __construct (array $settings)
+    public function __construct(array $settings)
     {
         if ( $this->use_curl && ! in_array('curl', get_loaded_extensions())) {
             throw new Exception('You need to install cURL, see: http://curl.haxx.se/docs/install.html');
         }
         
-        if ( empty($settings['clientId']) || empty($settings['clientSecret'])) {
+        if (empty($settings['clientId'])) {
             throw new Exception('secretKey or clientId cannot be null or empty!');
         }
+        if (empty($settings['clientSecret'])) {
+            if ($settings['requestCode']) {
+                // Performance redirect
+                $this->authorization = new NimbleAPIAuthorization();
+                $this->authorization->requestCode($settings['clientId']);
+                die();
+            } else {
+                throw new Exception('secretKey or clientId cannot be null or empty!');
+            }
+        }
 
-        if ( empty($settings['mode']) ) {
+        if (empty($settings['mode'])) {
             throw new Exception('mode cannot be null or empty!');
         }
         try {
-            if( $settings['mode'] == 'real') {
-                $this->uri = ConfigSDK::NIMBLE_API_BASE_URL;
+            // Set URL depending on environment
+            if ($settings['mode'] == 'real') {
+                $this->uri = NimbleAPIConfig::NIMBLE_API_BASE_URL;
+                $this->base_uri = NimbleAPIConfig::NIMBLE_API_BASE_URL;
             } else {
-                $this->uri = ConfigSDK::NIMBLE_API_BASE_URL_DEMO;
+                $this->uri = NimbleAPIConfig::NIMBLE_API_BASE_URL_DEMO;
+                $this->base_uri = NimbleAPIConfig::NIMBLE_API_BASE_URL_DEMO;
             }
 
-            $this->authorization = new authorization();
+            // Authenticate object
+            $this->authorization = new NimbleAPIAuthorization();
+            // Set auth type (basic or 3legger)
+            $this->authorization->setAuthType(isset($settings['authType'])?$settings['authType']:'basic');
+            // Set credentials
             $this->authorization->setClientId($settings['clientId']);
             $this->authorization->setClientSecret($settings['clientSecret']);
-            if (! $this->authorization->IsAccessParams()) {
+            // Check if we are on oAuth process by parameter oauth_code
+            if (isset($settings['oauth_code'])) {
+                //HEADERS
+                $this->authorization->addHeader('Content-Type', 'application/json');
+                $this->authorization->addHeader('Accept', 'application/json');
+                
+                // oAuth process > needs to request token to security server (with oauth_code)
+                $this->oauth_code = $settings['oauth_code'];
                 $this->authorization->getAuthorization($this);
+            } elseif (! $this->authorization->isAccessParams()) {
+                // Not oAuth process > check if token is provided
+                if (isset($settings['token'])) {
+                    // Already authenticated > save data
+                    $this->authorization->setAccessParams(array(
+                        'token_type' => 'tsec',
+                        'access_token' => $settings['token'],
+                        ));
+                    // If refresh token provided perform refresh callback
+                    if (isset($settings['refreshToken'])) {
+                        $this->uri_oauth = NimbleAPIConfig::OAUTH_URL;
+                        $this->authorization->setRefreshToken($settings['refreshToken']);
+                        $this->authorization->refreshToken($this);
+                    }
+                } else {
+                    //HEADERS
+                    $this->authorization->addHeader('Content-Type', 'application/json');
+                    $this->authorization->addHeader('Accept', 'application/json');
+                    // Not yet authenticated
+                    $this->authorization->getAuthorization($this);
+                }
             }
-        }
-        catch (Exception $e) {
-            throw new Exception('Failed to instantiate Authorization: ' . $e);
+        } catch (Exception $e) {
+            throw new Exception('Failed to instantiate NimbleAPIAuthorization: ' . $e);
         }
     }
 
@@ -110,14 +169,13 @@ class NimbleAPI
      *
      * @return $response
      */
-    public function rest_api_call ()
+    public function restApiCall()
     {
         try {
-            if (! isset($curl_connect))
+            if (! isset($curl_connect)) {
                 $curl_connect = curl_init();
+            }
             
-            
-            $postfields = $this->getPostfields();
             $header = $this->getHeaders();
             //Prepare header
             $curl_header = array();
@@ -127,6 +185,8 @@ class NimbleAPI
                 }
             }
             
+            $postfields = $this->getPostfields();
+            
             $url = $this->getApiUrl();
 
             $options = array(
@@ -135,7 +195,7 @@ class NimbleAPI
                     CURLOPT_CUSTOMREQUEST => $this->method, // GET POST PUT PATCH DELETE
                     CURLOPT_HEADER => false,
                     CURLOPT_RETURNTRANSFER => true,
-                    CURLOPT_TIMEOUT => ConfigSDK::TIMEOUT
+                    CURLOPT_TIMEOUT => NimbleAPIConfig::TIMEOUT
             );
 
             if (! is_null($postfields)) {
@@ -158,9 +218,8 @@ class NimbleAPI
             
             curl_close($curl_connect);
             return $response;
-        }
-        catch (Exception $e) {
-            throw new Exception('Failed to send Data in rest_api_call: ' . $e);
+        } catch (Exception $e) {
+            throw new Exception('Failed to send Data in restApiCall: ' . $e);
         }
     }
 
@@ -170,7 +229,7 @@ class NimbleAPI
      * @param string $getfields
      * @return NimbleAPI
      */
-    public function setGetfields ($getfields)
+    public function setGetfields($getfields)
     {
         $this->postfields = null;
         
@@ -194,14 +253,32 @@ class NimbleAPI
     }
 
     /**
+     * Method getUri
+     *
+     * @return string $uri
+     */
+    public function getUri()
+    {
+        return $this->uri;
+    }
+    /**
+     * Method setUri
+     *
+     * @param string $uri
+     */
+    public function setUri($uri)
+    {
+        $this->uri = $uri;
+    }
+
+    /**
      * Method setPostfields
      *
      * @param string $postfields
-     * @return NimbleAPI object
      */
-    public function setPostfields ($postfields)
+    public function setPostfields($postfields)
     {
-        $this->getfields = null;
+        //$this->getfields = null;
         $this->postfields = $postfields;
         
         return $this;
@@ -212,7 +289,7 @@ class NimbleAPI
      *
      * @return string
      */
-    public function getGetfields ()
+    public function getGetfields()
     {
         return $this->getfields;
     }
@@ -220,9 +297,8 @@ class NimbleAPI
     /**
      * Method getPostfields
      *
-     * @return NimbleAPI object
      */
-    public function getPostfields ()
+    public function getPostfields()
     {
         return $this->postfields;
     }
@@ -233,7 +309,7 @@ class NimbleAPI
      *
      * @return string. Return the last status code 401 UnAuthorized, 200 Accept.
      */
-    public function getLastStatusCode ()
+    public function getLastStatusCode()
     {
         return $this->laststatuscode;
     }
@@ -244,54 +320,16 @@ class NimbleAPI
      * @param unknown $code
      * @return NimbleAPI object
      */
-    public function setLastStatusCode ($code)
+    public function setLastStatusCode($code)
     {
         $this->laststatuscode = $code;
         return $this;
     }
- 
-    /**
-     * Method getHeaders
-     * @return array. Returns the header to the api rest call
-     */
-    public function getHeaders ()
-    {
-        $this->authorization->addHeader('Content-Type', 'application/json');
-        $this->authorization->addHeader('Accept', 'application/json');
-
-        $this->authorization->buildAccessHeader();
-        $header = $this->authorization->getHeader();
-
-        return $header;
-    }
-    
-    /**
-     * Methos getApiUrl
-     * @return string. Return the url to the api rest call
-     */
-    function getApiUrl(){
-        if(!empty($this->uri_oauth)){
-            $url = $this->uri_oauth;
-            $this->uri_oauth = "";
-        } else
-            $url = $this->uri;
-        
-        //Set GET params
-        if (is_null($this->postfields)){
-            $getfields = $this->getGetfields();
-            if ($getfields !== '') {
-                $url .= $getfields;
-            }
-        }
-        
-       return $url;
-    }
-
 
     /**
      * Method clear. Clear all attributes of class NimbleApi except Object(for example: authorization)
      */
-    public function clear ()
+    public function clear()
     {
         try {
             foreach ($this as $key => &$valor) {
@@ -305,9 +343,77 @@ class NimbleAPI
                     }
                 }
             }
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             throw new Exception('Failed to clear attrubutes: ' . $e);
         }
+    }
+    
+    /**
+     * Method getHeaders
+     * @return array. Returns the header to the api rest call
+     */
+    public function getHeaders ()
+    {
+        $this->authorization->buildAccessHeader();
+        $header = $this->authorization->getHeader();
+        return $header;
+    }
+    
+    /**
+     * Methos getApiUrl
+     * @return string. Return the url to the api rest call
+     */
+    function getApiUrl(){
+        
+        if (!empty($this->uri_oauth)) {
+            $url = $this->uri_oauth;
+            $this->uri_oauth = "";
+        } else {
+            $url = $this->base_uri . $this->uri;
+        }
+        
+        //Set GET params
+        if ( $this->getfields ){
+            $getfields = $this->getGetfields();
+            if ($getfields !== '') {
+                $url .= $getfields;
+            }
+        }
+        
+       return $url;
+    }
+    
+    /**
+     * Validates mode corresponds with credentials
+     * @return type
+     */
+    public function checkMode(){
+        $this->setUri('check');
+        $this->method = 'GET';
+        $response = $this->restApiCall();
+        return $response;
+    }
+
+    
+    /*
+     * Get the URL for Authentication on 3 steps
+     */
+    public function getOauth3Url(){
+        return $this->authorization->getOauth3Url();
+    }
+    
+    static public function getGatewayUrl($platform, $storeName, $storeURL, $redirectURL) {
+        $params = array(
+            'action' => 'gateway',
+            'mode' => NimbleAPIConfig::MODE,
+            'platform' => $platform,
+            'storeName' => $storeName,
+            'storeURL' => rtrim(strtr(base64_encode($storeURL), '+/', '-_'), '='),
+            'redirectURL' => rtrim(strtr(base64_encode($redirectURL), '+/', '-_'), '=')
+            
+        );
+        
+        return NimbleAPIConfig::GATEWAY_URL.'?'.http_build_query($params);
+        
     }
 }

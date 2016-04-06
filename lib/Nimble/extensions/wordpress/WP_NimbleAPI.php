@@ -26,7 +26,7 @@ class WP_NimbleAPI extends NimbleAPI{
      *
      * @return $response
      */
-    public function rest_api_call ()
+    public function restApiCall ()
     {
         try {
             	
@@ -43,7 +43,7 @@ class WP_NimbleAPI extends NimbleAPI{
                     'method' => $this->method, // GET POST PUT PATCH DELETE
                     //CURLOPT_HEADER => false,
                     //CURLOPT_RETURNTRANSFER => true,
-                    'timeout' => ConfigSDK::TIMEOUT
+                    'timeout' => NimbleAPIConfig::TIMEOUT
             );
             
 
