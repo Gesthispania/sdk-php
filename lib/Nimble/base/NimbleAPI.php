@@ -200,10 +200,6 @@ class NimbleAPI
             $response = json_decode(curl_exec($curl_connect), true);
 
             $this->setLastStatusCode(curl_getinfo($curl_connect, CURLINFO_HTTP_CODE));
-
-            if ($this->authorization->is_preauthorized_request) {
-                $this->authorization->setAccessParams($response);
-            }
             
             curl_close($curl_connect);
             return $response;
