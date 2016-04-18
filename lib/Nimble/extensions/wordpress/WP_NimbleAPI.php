@@ -66,10 +66,6 @@ class WP_NimbleAPI extends NimbleAPI{
             } else {
                 $this->setLastStatusCode(0);
             }
-
-            if ($this->authorization->is_preauthorized_request) {
-                $this->authorization->setAccessParams($response);
-            }
             
             return $response;
         }

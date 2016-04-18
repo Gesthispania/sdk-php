@@ -48,12 +48,6 @@ class NimbleAPIAuthorization
 
     /**
      *
-     * @var string $ is_authorized_request
-     */
-    public $is_preauthorized_request;
-
-    /**
-     *
      * @var int. $ expires_in. Time in seconds for the token ceases to be valid
      */
     private $expires_in;
@@ -103,7 +97,6 @@ class NimbleAPIAuthorization
     public function buildAuthorizationHeader()
     {
         $this->addHeader('Authorization', 'Basic ' . base64_encode($this->clientId . ':' . $this->clientSecret));
-        $this->is_preauthorized_request = 1;
     }
 
     /**
@@ -113,7 +106,6 @@ class NimbleAPIAuthorization
      */
     public function buildAccessHeader()
     {
-        $this->is_preauthorized_request = 0;
         if ($this->isAccessParams()) {
             $this->addHeader('Authorization', $this->token_type . ' ' . $this->access_token);
         }
