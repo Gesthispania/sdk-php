@@ -322,50 +322,6 @@ class NimbleAPIAuthorization
     }
 
     /**
-     * Refresh token callback implementation
-     * @param  object $NimbleApi NimbleAPI object
-     * @return boolean            wether the refresh operation was succesfully executed or not
-     */
-    public function refreshToken($NimbleApi)
-    {
-        if (empty($NimbleApi)) {
-            throw new Exception('$NimbleApi parameter is empty');
-        }
-        try {
-            $NimbleApi->uri_oauth = NimbleAPIConfig::OAUTH_URL;
-            $NimbleApi->setGetfields('?grant_type=refresh_token');
-            $postfields = array(
-                            'refresh_token' => $this->refresh_token
-                        );
-            $NimbleApi->setPostfields(http_build_query($postfields));
-          
-            $NimbleApi->method = 'POST';
-            $this->buildAuthorizationHeader();
-            $this->access_token = null;
-            $response = $NimbleApi->restApiCall();
-
-            $NimbleApi->setGetfields(null);
-
-            if (isset($response['result']) && $response['result']['code'] != "200") {
-                switch ($response['result']['code']) {
-                    case '401':
-                        // Refresh token expired ?
-                        break;
-                    default:
-                        throw new Exception($response['result']['code'].' '.$response['result']['info']);
-                }
-                
-            } else {
-                $this->setAccessParams($response);
-            }
-
-            return true;
-        } catch (Exception $e) {
-            throw new Exception('Failed in refreshToken: ' . $e);
-        }
-    }
-
-    /**
      * Implements first step of oAuth process, redirecting request to security server
      * @param  string $clientId client id
      */
@@ -380,51 +336,6 @@ class NimbleAPIAuthorization
             die();
         } catch (Exception $e) {
             throw new Exception('Failed in requestCode: ' . $e);
-        }
-    }
-
-    /**
-     * Implements authorization process on NimbleAPI object (basic or 3legged)
-     * @param  object $NimbleApi NimbleAPI object to authorize
-     * @return boolean           wether or not was authorized
-     */
-    public function getAuthorization($NimbleApi)
-    {
-        if (empty($NimbleApi)) {
-            throw new Exception('$NimbleApi parameter is empty');
-        }
-        try {
-            $NimbleApi->uri_oauth = NimbleAPIConfig::OAUTH_URL;
-            switch ($this->getAuthType()) {
-                case 'basic':
-                    $NimbleApi->setGetfields('?grant_type=client_credentials&scope=PAYMENT');
-                    break;
-                case '3legged':
-                    $NimbleApi->setGetfields('?grant_type=authorization_code&code=' . $NimbleApi->oauth_code);
-                    break;
-            }
-            $NimbleApi->method = 'POST';
-            $this->buildAuthorizationHeader();
-            $response = $NimbleApi->restApiCall();
-
-            $NimbleApi->setGetfields(null);
-
-            if (isset($response['result']) && $response['result']['code'] != "200") {
-                switch ($response['result']['code']) {
-                    case '401':
-                        // Try to refresh token
-                        break;
-                    default:
-                        throw new Exception($response['result']['code'].' '.$response['result']['info']);
-                }
-                
-            } else {
-                $this->setAccessParams($response);
-            }
-
-            return true;
-        } catch (Exception $e) {
-            throw new Exception('Failed in getAuthorization: ' . $e);
         }
     }
     

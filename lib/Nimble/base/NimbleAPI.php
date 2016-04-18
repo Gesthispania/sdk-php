@@ -10,6 +10,8 @@
 
 require_once 'NimbleAPIConfig.php';
 require_once 'NimbleAPIAuthorization.php';
+require_once '../lib/Nimble/api/NimbleAPIAuth.php';
+
 
 /**
  * NimbleAPI is the api that does all the connection mechanism to each of the requests. It is primarily responsible for
@@ -38,13 +40,6 @@ class NimbleAPI
      * @var string $ uri. (Url service oauth)
      */
     public $uri_oauth;
-
-    /**
-     * @source
-     *
-     * @var string $ oauth_code. (oAuth code for access token request)
-     */
-    public $oauth_code;
 
     /**
      *
@@ -135,8 +130,7 @@ class NimbleAPI
                 $this->authorization->addHeader('Accept', 'application/json');
                 
                 // oAuth process > needs to request token to security server (with oauth_code)
-                $this->oauth_code = $settings['oauth_code'];
-                $this->authorization->getAuthorization($this);
+                NimbleAPIAuth::getCodeAuthorization($this, $settings['oauth_code']);
             } elseif (! $this->authorization->isAccessParams()) {
                 // Not oAuth process > check if token is provided
                 if (isset($settings['token'])) {
@@ -149,14 +143,14 @@ class NimbleAPI
                     if (isset($settings['refreshToken'])) {
                         $this->uri_oauth = NimbleAPIConfig::OAUTH_URL;
                         $this->authorization->setRefreshToken($settings['refreshToken']);
-                        $this->authorization->refreshToken($this);
+                        NimbleAPIAuth::refreshToken($this);
                     }
                 } else {
                     //HEADERS
                     $this->authorization->addHeader('Content-Type', 'application/json');
                     $this->authorization->addHeader('Accept', 'application/json');
                     // Not yet authenticated
-                    $this->authorization->getAuthorization($this);
+                    NimbleAPIAuth::getPaymentAuthorization($this);
                 }
             }
         } catch (Exception $e) {
