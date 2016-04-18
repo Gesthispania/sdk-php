@@ -368,18 +368,6 @@ class NimbleAPI
        return $url;
     }
     
-    /**
-     * Validates mode corresponds with credentials
-     * @return type
-     */
-    public function checkMode(){
-        $this->setUri('check');
-        $this->method = 'GET';
-        $response = $this->restApiCall();
-        return $response;
-    }
-
-    
     /*
      * Get the URL for Authentication on 3 steps
      */
