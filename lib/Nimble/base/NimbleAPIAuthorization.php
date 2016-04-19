@@ -151,22 +151,6 @@ class NimbleAPIAuthorization
     }
 
     /**
-     * Method buildHeader. Returns an array of header parameters.
-     *
-     * @return multitype:
-     */
-    public function buildHeader()
-    {
-        $header = array();
-        foreach ($this->header as $param => $value) {
-            if ($value != "") {
-                array_push($header, $param . ': ' . $value);
-            }
-        }
-        return $header;
-    }
-    
-    /**
      * Method getHeader. Returns an array of header parameters.
      *
      * @return multitype:
