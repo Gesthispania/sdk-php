@@ -103,16 +103,11 @@ class NimbleAPI
             }
         }
 
-        if (empty($settings['mode'])) {
-            throw new Exception('mode cannot be null or empty!');
-        }
         try {
             // Set URL depending on environment
-            if ($settings['mode'] == 'real') {
-                $this->uri = NimbleAPIConfig::NIMBLE_API_BASE_URL;
+            if (NimbleAPIConfig::MODE == 'real') {
                 $this->base_uri = NimbleAPIConfig::NIMBLE_API_BASE_URL;
             } else {
-                $this->uri = NimbleAPIConfig::NIMBLE_API_BASE_URL_DEMO;
                 $this->base_uri = NimbleAPIConfig::NIMBLE_API_BASE_URL_DEMO;
             }
 
@@ -372,18 +367,6 @@ class NimbleAPI
         
        return $url;
     }
-    
-    /**
-     * Validates mode corresponds with credentials
-     * @return type
-     */
-    public function checkMode(){
-        $this->setUri('check');
-        $this->method = 'GET';
-        $response = $this->restApiCall();
-        return $response;
-    }
-
     
     /*
      * Get the URL for Authentication on 3 steps
