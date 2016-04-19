@@ -14,8 +14,7 @@ require_once 'functions.php';
 
 $params = array(
         'clientId' => CLIENT_ID,
-        'clientSecret' => CLIENT_SECRET,
-        'mode' => NimbleAPIConfig::MODE
+        'clientSecret' => CLIENT_SECRET
 );
 
 
@@ -32,7 +31,6 @@ if ($_REQUEST['code']):
     $params = array(
             'clientId' => CLIENT_ID,
             'clientSecret' => CLIENT_SECRET,
-            'mode' => NimbleAPIConfig::MODE,
             'token' => 'old_token',
             'refreshToken' => $NimbleApi->authorization->getRefreshToken()
     );

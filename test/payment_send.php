@@ -22,8 +22,7 @@ $payment = array(
 
 $params = array(
         'clientId' => CLIENT_ID,
-        'clientSecret' => CLIENT_SECRET,
-        'mode' => NimbleAPIConfig::MODE
+        'clientSecret' => CLIENT_SECRET
 );
 /* High Level call */
 $NimbleApi = new NimbleAPI($params);
