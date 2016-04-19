@@ -24,7 +24,7 @@ class NimbleAPIAuthorization
 
     /**
      *
-     * @var string $ token_type
+     * @var string $ basic
      */
     private $basic;
     
