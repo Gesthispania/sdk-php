@@ -11,7 +11,6 @@ require_once '../lib/Nimble/base/NimbleAPI.php';
 require_once '../lib/Nimble/api/NimbleAPIPayments.php';
 require_once 'functions.php';
 
-    
 $payment = array(
          'amount' => 1010,
 	  'currency' => 'EUR',
