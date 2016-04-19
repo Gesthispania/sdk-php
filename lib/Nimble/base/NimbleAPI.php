@@ -77,6 +77,58 @@ class NimbleAPI
      */
     protected $use_curl = true;
 
+     /**
+     *
+     * @var string $ clientId
+     */
+    private $clientId;
+
+    /**
+     *
+     * @var string $ clientSecret
+     */
+    private $clientSecret;
+    
+    /**
+     * Method getClientId
+     *
+     * @return string
+     */
+    public function getClientId()
+    {
+        return $this->clientId;
+    }
+
+    /**
+     * Method setClientId
+     *
+     * @param string $clientId
+     */
+    public function setClientId($clientId)
+    {
+        $this->clientId = $clientId;
+    }
+
+    /**
+     * Method getClientSecret
+     *
+     * @return string
+     */
+    public function getClientSecret()
+    {
+        return $this->clientSecret;
+    }
+
+    /**
+     * Method setClientSecret
+     *
+     * @param string $clientSecret
+     */
+    public function setClientSecret($clientSecret)
+    {
+        $this->clientSecret = $clientSecret;
+    }
+    
     /**
      * Construct method. Start the object NimbleApi. Start the Object NimbleAPIAuthorization too.
      *
@@ -116,8 +168,8 @@ class NimbleAPI
             // Set auth type (basic or 3legger)
             $this->authorization->setAuthType(isset($settings['authType'])?$settings['authType']:'basic');
             // Set credentials
-            $this->authorization->setClientId($settings['clientId']);
-            $this->authorization->setClientSecret($settings['clientSecret']);
+            $this->setClientId($settings['clientId']);
+            $this->setClientSecret($settings['clientSecret']);
             // Check if we are on oAuth process by parameter oauth_code
             if (isset($settings['oauth_code'])) {
                 //HEADERS
@@ -372,9 +424,16 @@ class NimbleAPI
      * Get the URL for Authentication on 3 steps
      */
     public function getOauth3Url(){
-        return $this->authorization->getOauth3Url();
+        $params = array(
+            'response_type' => 'code',
+            'client_id' => $this->getClientId()
+        );
+        return NimbleAPIConfig::OAUTH3_URL_AUTH.'?'.http_build_query($params);
     }
     
+    /*
+     * Get gateway url
+     */
     static public function getGatewayUrl($platform, $storeName, $storeURL, $redirectURL) {
         $params = array(
             'action' => 'gateway',
@@ -389,4 +448,13 @@ class NimbleAPI
         return NimbleAPIConfig::GATEWAY_URL.'?'.http_build_query($params);
         
     }
+    
+    /**
+     * Method buildAuthorizationHeader, add Authorization header.
+     */
+    public function buildAuthorizationHeader()
+    {
+        $this->authorization->addHeader('Authorization', 'Basic ' . base64_encode($this->clientId . ':' . $this->clientSecret));
+    }
+    
 }

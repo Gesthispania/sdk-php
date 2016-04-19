@@ -14,7 +14,7 @@
  * request
  */
 class NimbleAPIAuth {
-
+    
     /**
      * Implements authorization process on NimbleAPI object (basic or 3legged)
      * @param  object $NimbleApi NimbleAPI object to authorize
@@ -28,7 +28,7 @@ class NimbleAPIAuth {
             $NimbleApi->uri_oauth = NimbleAPIConfig::OAUTH_URL;
             $NimbleApi->setGetfields('?grant_type=client_credentials&scope=PAYMENT');
             $NimbleApi->method = 'POST';
-            $NimbleApi->authorization->buildAuthorizationHeader();
+            $NimbleApi->buildAuthorizationHeader();
             $response = $NimbleApi->restApiCall();
 
             $NimbleApi->setGetfields(null);
@@ -64,7 +64,7 @@ class NimbleAPIAuth {
             $NimbleApi->uri_oauth = NimbleAPIConfig::OAUTH_URL;
             $NimbleApi->setGetfields('?grant_type=authorization_code&code=' . $oauth_code);
             $NimbleApi->method = 'POST';
-            $NimbleApi->authorization->buildAuthorizationHeader();
+            $NimbleApi->buildAuthorizationHeader();
             $response = $NimbleApi->restApiCall();
 
             $NimbleApi->setGetfields(null);
@@ -105,7 +105,7 @@ class NimbleAPIAuth {
             $NimbleApi->setPostfields(http_build_query($postfields));
 
             $NimbleApi->method = 'POST';
-            $NimbleApi->authorization->buildAuthorizationHeader();
+            $NimbleApi->buildAuthorizationHeader();
             $NimbleApi->authorization->setAccessToken(null);
             $response = $NimbleApi->restApiCall();
 

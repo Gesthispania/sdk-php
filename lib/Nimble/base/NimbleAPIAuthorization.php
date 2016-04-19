@@ -18,22 +18,16 @@ class NimbleAPIAuthorization
 {
     /**
      *
-     * @var string $ clientId
+     * @var string $ token_type
      */
-    private $clientId;
-
-    /**
-     *
-     * @var string $ clientSecret
-     */
-    private $clientSecret;
+    private $token_type;
 
     /**
      *
      * @var string $ token_type
      */
-    private $token_type;
-
+    private $basic;
+    
     /**
      *
      * @var string $ access_token
@@ -71,6 +65,26 @@ class NimbleAPIAuthorization
     private $authType;
 
     /**
+     * Method getBasic
+     *
+     * @return string
+     */
+    public function getBasic()
+    {
+        return $this->basic;
+    }
+
+    /**
+     * Method setBasic
+     *
+     * @param string $basic
+     */
+    public function setBasic($basic)
+    {
+        $this->basic = $basic;
+    }
+    
+    /**
      * Function addheader, add a type param with a context in the header
      *
      * @param string $param
@@ -91,13 +105,6 @@ class NimbleAPIAuthorization
         unset($this->header[$param]);
     }
 
-    /**
-     * Method buildAuthorizationHeader, add Authorization header.
-     */
-    public function buildAuthorizationHeader()
-    {
-        $this->addHeader('Authorization', 'Basic ' . base64_encode($this->clientId . ':' . $this->clientSecret));
-    }
 
     /**
      * Method buildAccessHeader, add Access Authorization header.
@@ -214,46 +221,6 @@ class NimbleAPIAuthorization
     }
 
     /**
-     * Method getClientId
-     *
-     * @return string
-     */
-    public function getClientId()
-    {
-        return $this->clientId;
-    }
-
-    /**
-     * Method setClientId
-     *
-     * @param string $clientId
-     */
-    public function setClientId($clientId)
-    {
-        $this->clientId = $clientId;
-    }
-
-    /**
-     * Method getClientSecret
-     *
-     * @return string
-     */
-    public function getClientSecret()
-    {
-        return $this->clientSecret;
-    }
-
-    /**
-     * Method setClientSecret
-     *
-     * @param string $clientSecret
-     */
-    public function setClientSecret($clientSecret)
-    {
-        $this->clientSecret = $clientSecret;
-    }
-
-    /**
      * Method getAccessToken
      *
      * @return string
@@ -331,15 +298,4 @@ class NimbleAPIAuthorization
         }
     }
     
-    /*
-     * Get the URL for Authentication on 3 steps
-     */
-    public function getOauth3Url()
-    {
-        $params = array(
-            'response_type' => 'code',
-            'client_id' => $this->clientId
-        );
-        return NimbleAPIConfig::OAUTH3_URL_AUTH.'?'.http_build_query($params);
-    }
 }
