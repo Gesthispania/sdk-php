@@ -59,12 +59,6 @@ class NimbleAPIAuthorization
     private $scope;
 
     /**
-     *
-     * @var string. Basic or 3legged
-     */
-    private $authType;
-
-    /**
      * Method getBasic
      *
      * @return string
@@ -199,25 +193,6 @@ class NimbleAPIAuthorization
     public function getRefreshExpirationTime()
     {
         return $this->refresh_expires_in;
-    }
-    /**
-     * Method getAuthType
-     *
-     * @return string
-     */
-    public function getAuthType()
-    {
-        return $this->authType;
-    }
-
-    /**
-     * Method setAuthType
-     *
-     * @param string $authType
-     */
-    public function setAuthType($authType)
-    {
-        $this->authType = $authType;
     }
 
     /**

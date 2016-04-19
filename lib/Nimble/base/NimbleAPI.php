@@ -165,8 +165,6 @@ class NimbleAPI
 
             // Authenticate object
             $this->authorization = new NimbleAPIAuthorization();
-            // Set auth type (basic or 3legger)
-            $this->authorization->setAuthType(isset($settings['authType'])?$settings['authType']:'basic');
             // Set credentials
             $this->setClientId($settings['clientId']);
             $this->setClientSecret($settings['clientSecret']);
