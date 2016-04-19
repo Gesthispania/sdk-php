@@ -55,5 +55,5 @@ class NimbleAPIConfig
      *
      * @var string MODE constant var
      */
-    const MODE = 'real';
+    const MODE = 'demo';
 }

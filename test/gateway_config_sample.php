@@ -1,0 +1,6 @@
+<?php
+
+define('CLIENT_ID', 'YOUR_GATEWAY_CLIEND_ID');
+define('CLIENT_SECRET', 'YOUR_GATEWAY_CLIEND_SECRET');
+
+
