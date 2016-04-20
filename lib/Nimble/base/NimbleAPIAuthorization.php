@@ -238,23 +238,4 @@ class NimbleAPIAuthorization
     {
         $this->token_type = $token_type;
     }
-
-    /**
-     * Implements first step of oAuth process, redirecting request to security server
-     * @param  string $clientId client id
-     */
-    public function requestCode($clientId)
-    {
-        $params = array(
-            'response_type' => 'code',
-            'client_id' => $clientId
-        );
-        try {
-            header("Location: " . NimbleAPIConfig::OAUTH3_URL_AUTH.'?'.http_build_query($params));
-            die();
-        } catch (Exception $e) {
-            throw new Exception('Failed in requestCode: ' . $e);
-        }
-    }
-    
 }

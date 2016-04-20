@@ -141,18 +141,8 @@ class NimbleAPI
             throw new Exception('You need to install cURL, see: http://curl.haxx.se/docs/install.html');
         }
         
-        if (empty($settings['clientId'])) {
+        if (empty($settings['clientId']) || empty($settings['clientSecret'])) {
             throw new Exception('secretKey or clientId cannot be null or empty!');
-        }
-        if (empty($settings['clientSecret'])) {
-            if ($settings['requestCode']) {
-                // Performance redirect
-                $this->authorization = new NimbleAPIAuthorization();
-                $this->authorization->requestCode($settings['clientId']);
-                die();
-            } else {
-                throw new Exception('secretKey or clientId cannot be null or empty!');
-            }
         }
 
         try {
