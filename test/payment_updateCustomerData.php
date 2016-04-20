@@ -24,9 +24,9 @@ $params = array(
 <br /> <pre>
 
 <?php
-if ($_REQUEST['transaction_id']):
+if (isset($_REQUEST['transaction_id'])):
     /* High Level call */
-    $transaction_id=$_REQUEST['transaction_id'];
+    $transaction_id = $_REQUEST['transaction_id'];
     $NimbleApi = new NimbleAPI($params);
     $response2 = NimbleAPIPayments::updateCustomerData($NimbleApi, $transaction_id, 'NEW_IDSAMPLE12345');
     var_dump($response2);
