@@ -1,6 +1,6 @@
+<a href='./'>Go back</a>
 <?php
 
-  
 if (file_exists('gateway_config.php')) {
     include 'gateway_config.php';
 }
