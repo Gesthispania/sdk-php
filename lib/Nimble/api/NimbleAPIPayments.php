@@ -52,7 +52,6 @@ class NimbleAPIPayments {
      */
     public static function updateCustomerData($NimbleApi, $transaction_id, $new_order_id) {
 
-
         if (empty($NimbleApi)) {
             throw new Exception('$NimbleApi parameter is empty.');
         }
@@ -69,6 +68,44 @@ class NimbleAPIPayments {
             return $response;
         } catch (Exception $e) {
             throw new Exception('Error in updateCustomerData: ' . $e);
+        }
+    }
+
+    /**
+     * Method sendPaymentRefund
+     */
+    public static function sendPaymentRefund($NimbleApi, $IdTransaction, $refund)
+    {
+    
+        if (empty($NimbleApi)) {
+            throw new Exception('$NimbleApi parameter is empty in sendPaymentRefund.');
+        }
+        if (empty($refund)) {
+            throw new Exception('$refund parameter is empty, please enter a refund in sendPaymentRefund');
+        }
+    
+        try {
+            $NimbleApi->setPostfields(json_encode($refund));
+            $NimbleApi->setURI('payments/'.$IdTransaction.'/refund/');
+            $NimbleApi->method = 'POST';
+            $NimbleApi->authorization->addHeader('Content-Type', 'application/json');
+            $NimbleApi->authorization->buildAccessHeader();
+            $response = $NimbleApi->restApiCall();
+            if (!is_null($response)) {
+                if (isset($response["data"])) {
+                    return $response;
+                } else {
+                    if (isset($response["result"]["internal_code"])) {
+                        return array("error" => "Error: ". $response["result"]["internal_code"] ." on sendPaymentRefund");
+                    } else {
+                        return array("error" => "Error: ". $response["result"]["code"] . " ". $response["result"]["info"] ." on sendPaymentRefund");
+                    }
+                }
+            } else {
+                return array("error" => "Error: The call to the API Nimble didn't respond on sendPaymentRefund");
+            }
+        } catch (Exception $e) {
+            throw new Exception('Error in sendPaymentRefund: ' . $e);
         }
     }
 

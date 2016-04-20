@@ -18,17 +18,26 @@ $params = array(
 ------------------------------------------------------------------------------------------------------------
 
 <br />
-<form action="#"><label>TRANSACTION_ID</label><input type="text" name="transaction_id"/><input type="submit" value="validate"/></form>
+<form action="#">
+    <label title="Get from payment_send.php test">TRANSACTION_ID <input type="text" name="transaction_id"/></label> <br/>
+    <label title="Get from authentication_code.php test">BASE64 TOKEN OAUTH3 <textarea type="text" name="token"></textarea></label> <br/>
+    <input type="submit" value="validate"/>
+</form>
 <br/>
 ------------------------------------------------------------------------------------------------------------
 <br /> <pre>
 
 <?php
-if (isset($_REQUEST['transaction_id'])):
+if ( isset($_REQUEST['transaction_id']) && isset($_REQUEST['token']) ):
     /* High Level call */
+    $amount = array ("amount" => 300,
+                     "concept"=> "Shoes",
+                     "reason" => "REQUEST_BY_CUSTOMER");
+
     $transaction_id = $_REQUEST['transaction_id'];
+    $params['token'] = base64_decode($_REQUEST['token']);
     $NimbleApi = new NimbleAPI($params);
-    $response2 = NimbleAPIPayments::updateCustomerData($NimbleApi, $transaction_id, 'NEW_IDSAMPLE12345');
+    $response2 = NimbleAPIPayments::sendPaymentRefund($NimbleApi, $transaction_id, $amount);
     var_dump($response2);
 endif;
 ?>

@@ -19,7 +19,7 @@ $NimbleApi = new NimbleAPI($params);
 <br />
 <?php
 
-if ($_REQUEST['code']):
+if (isset($_REQUEST['code'])):
     $params['oauth_code'] = $_REQUEST['code'];
     $NimbleApi = new NimbleAPI($params);
     ?>
@@ -43,7 +43,10 @@ if ($_REQUEST['code']):
     <?php
     var_dump($NimbleApi2->authorization->getAccessToken());
     var_dump($NimbleApi2->authorization->getRefreshToken());
-    
+    ?>
+    <hr>
+    BASE64 OAUTH3 TOKEN: <?php echo base64_encode($NimbleApi2->authorization->getAccessToken()); ?>
+    <?php
 endif;
 
 ?>
