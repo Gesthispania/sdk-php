@@ -27,12 +27,14 @@ class NimbleAPIAuth {
         try {
             $NimbleApi->uri_oauth = true;
             //HEADERS
+            $NimbleApi->buildAuthorizationHeader();
             $NimbleApi->authorization->addHeader('Content-Type', 'application/json');
             $NimbleApi->authorization->addHeader('Accept', 'application/json');
+
             
             $NimbleApi->setGetfields('?grant_type=client_credentials&scope=PAYMENT');
             $NimbleApi->method = 'POST';
-            $NimbleApi->buildAuthorizationHeader();
+            
             $response = $NimbleApi->restApiCall();
 
             $NimbleApi->setGetfields(null);
@@ -67,12 +69,12 @@ class NimbleAPIAuth {
         try {
             $NimbleApi->uri_oauth = true;
             //HEADERS
+            $NimbleApi->buildAuthorizationHeader();
             $NimbleApi->authorization->addHeader('Content-Type', 'application/json');
             $NimbleApi->authorization->addHeader('Accept', 'application/json');
             
             $NimbleApi->setGetfields('?grant_type=authorization_code&code=' . $oauth_code);
             $NimbleApi->method = 'POST';
-            $NimbleApi->buildAuthorizationHeader();
             $response = $NimbleApi->restApiCall();
 
             $NimbleApi->setGetfields(null);
@@ -106,6 +108,9 @@ class NimbleAPIAuth {
         }
         try {
             $NimbleApi->uri_oauth = true;
+            //HEADERS
+            $NimbleApi->buildAuthorizationHeader();
+            
             $NimbleApi->setGetfields('?grant_type=refresh_token');
             $postfields = array(
                 'refresh_token' => $NimbleApi->authorization->getRefreshToken()
@@ -113,7 +118,6 @@ class NimbleAPIAuth {
             $NimbleApi->setPostfields(http_build_query($postfields));
 
             $NimbleApi->method = 'POST';
-            $NimbleApi->buildAuthorizationHeader();
             $NimbleApi->authorization->setAccessToken(null);
             $response = $NimbleApi->restApiCall();
 
