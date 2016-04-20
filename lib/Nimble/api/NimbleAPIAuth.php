@@ -20,7 +20,7 @@ class NimbleAPIAuth {
      * @param  object $NimbleApi NimbleAPI object to authorize
      * @return boolean           wether or not was authorized
      */
-    public static function getPaymentAuthorization($NimbleApi) {
+    public static function getBasicAuthorization($NimbleApi) {
         if (empty($NimbleApi)) {
             throw new Exception('$NimbleApi parameter is empty');
         }
