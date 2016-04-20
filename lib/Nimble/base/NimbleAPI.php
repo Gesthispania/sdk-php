@@ -37,9 +37,9 @@ class NimbleAPI
     /**
      * @source
      *
-     * @var string $ uri. (Url service oauth)
+     * @var bool $ uri_oauth. (True if next restApiCall need oauth uri)
      */
-    public $uri_oauth;
+    public $uri_oauth = false;
 
     /**
      *
@@ -160,10 +160,6 @@ class NimbleAPI
             $this->setClientSecret($settings['clientSecret']);
             // Check if we are on oAuth process by parameter oauth_code
             if (isset($settings['oauth_code'])) {
-                //HEADERS
-                $this->authorization->addHeader('Content-Type', 'application/json');
-                $this->authorization->addHeader('Accept', 'application/json');
-                
                 // oAuth process > needs to request token to security server (with oauth_code)
                 NimbleAPIAuth::getCodeAuthorization($this, $settings['oauth_code']);
             } elseif (! $this->authorization->isAccessParams()) {
@@ -176,14 +172,10 @@ class NimbleAPI
                         ));
                     // If refresh token provided perform refresh callback
                     if (isset($settings['refreshToken'])) {
-                        $this->uri_oauth = NimbleAPIConfig::OAUTH_URL;
                         $this->authorization->setRefreshToken($settings['refreshToken']);
                         NimbleAPIAuth::refreshToken($this);
                     }
                 } else {
-                    //HEADERS
-                    $this->authorization->addHeader('Content-Type', 'application/json');
-                    $this->authorization->addHeader('Accept', 'application/json');
                     // Not yet authenticated
                     NimbleAPIAuth::getBasicAuthorization($this);
                 }
@@ -390,9 +382,9 @@ class NimbleAPI
      */
     function getApiUrl(){
         
-        if (!empty($this->uri_oauth)) {
-            $url = $this->uri_oauth;
-            $this->uri_oauth = "";
+        if ($this->uri_oauth) {
+            $url = NimbleAPIConfig::OAUTH_URL;
+            $this->uri_oauth = false;
         } else {
             $url = $this->base_uri . $this->uri;
         }
