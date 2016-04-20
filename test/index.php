@@ -34,7 +34,13 @@ and open the template in the editor.
             <h2>NimbleApiPayments</h2>
             <ul>
                 <li>
-                    <a href="./payment_send.php">Credentials_check</a>
+                    <a href="./payment_send.php">payment_send</a>
+                </li>
+                <li>
+                    <a href="./payment_updateCustomerData.php">Payment_updateCustomerData</a>
+                </li>
+                <li>
+                    <a href="./payment_sendPaymentRefund.php">Payment_sendPaymentRefund</a>
                 </li>
             </ul>
         </div>
@@ -42,47 +48,18 @@ and open the template in the editor.
             <h2>NimbleApiStoredCards</h2>
             <ul>
                 <li>
-                    <a href="./payment_send.php">Credentials_check</a>
+                    <a href="./storedCard_getStoreCard.php">getStoredCards</a>
                 </li>
                 <li>
-                    <a href="./payment_updateCustomerData.php">Payment_updateCustomerData</a>
+                    <a href="./storedCard_selectDefault.php">selectDefault</a>
+                </li>
+                <li>
+                    <a href="./storedCard_payment.php">Payment</a>
+                </li>
+                <li>
+                    <a href="./storedCard_delete.php">deleteCard</a>
                 </li>
             </ul>
         </div>
-        <!--
-        <div>TEST NIMBLEPAYMENT</div>
-        <ul>
-            <li>
-                <a href="./payment_send.php">payment_send</a>
-            </li>
-            <li>
-                <a href="./authentication.php">authentication</a>
-            </li>
-            <li>
-                <a href="./authentication_code.php">authentication_code</a>
-            </li>
-            <li>
-                <a href="./credentials.php">Credentials_check</a>
-            </li>
-	    <li>
-                <a href="./payment_updateCustomerData.php">Payment_updateCustomerData</a>
-            </li>
-	    <li>
-                <a href="./payment_sendPaymentRefund.php">Payment_sendPaymentRefund</a>
-            </li>
-            <li>
-                <a href="./storedCard_getStoreCard.php">StoreCard_getStoreCard</a>
-            </li>
-            <li>
-                <a href="./storedCard_selectDefault.php">StoreCard_selectDefault</a>
-            </li>
-            <li>
-                <a href="./storedCard_payment.php">StoreCard_payment</a>
-            </li>
-            <li>
-                <a href="./storedCard_delete.php">StoreCard_delete</a>
-            </li>
-        </ul>
-        -->
     </body>
 </html>
