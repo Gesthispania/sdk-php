@@ -185,7 +185,7 @@ class NimbleAPI
                     $this->authorization->addHeader('Content-Type', 'application/json');
                     $this->authorization->addHeader('Accept', 'application/json');
                     // Not yet authenticated
-                    NimbleAPIAuth::getPaymentAuthorization($this);
+                    NimbleAPIAuth::getBasicAuthorization($this);
                 }
             }
         } catch (Exception $e) {
