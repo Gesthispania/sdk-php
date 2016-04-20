@@ -2,13 +2,9 @@
 //show code
 //highlight_file("/info/payment_send.php");
 ?>
-<br />
-------------------------------------------------------------------------------------------------------------
-<br />
-
 <?php
 require_once '../lib/Nimble/base/NimbleAPI.php';
-require_once '../lib/Nimble/api/NimbleAPIPayments.php';
+require_once '../lib/Nimble/api/NimbleAPIStoredCards.php';
 require_once 'functions.php';
 
 $payment = array(
@@ -28,9 +24,9 @@ $params = array(
 $NimbleApi = new NimbleAPI($params);
 ?>
 <br /> <pre>
+------------- STORE CARD ----- getStoredCards ----------------------
+
 Response:
 <?php
-$response = NimbleAPIPayments::SendPaymentClient($NimbleApi, $payment);
+$response = NimbleAPIStoredCards::getStoredCards($NimbleApi, $payment['userId']);
 var_dump($response);
-
-echo "<br/><a href='{$response['data']['paymentUrl']}'>{$response['data']['paymentUrl']}</a>";

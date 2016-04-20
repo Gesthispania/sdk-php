@@ -31,6 +31,18 @@ and open the template in the editor.
 	    <li>
                 <a href="./payment_sendPaymentRefund.php">Payment_sendPaymentRefund</a>
             </li>
+            <li>
+                <a href="./storedCard_getStoreCard.php">StoreCard_getStoreCard</a>
+            </li>
+            <li>
+                <a href="./storedCard_selectDefault.php">StoreCard_selectDefault</a>
+            </li>
+            <li>
+                <a href="./storedCard_payment.php">StoreCard_payment</a>
+            </li>
+            <li>
+                <a href="./storedCard_delete.php">StoreCard_delete</a>
+            </li>
         </ul>
     </body>
 </html>
