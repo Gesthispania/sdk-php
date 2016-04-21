@@ -90,13 +90,13 @@ class NimbleAPIAuthorization
     }
 
     /**
-     * Method deleteheader, add a type param with a context in the header
+     * Method clearHeader
      *
      * @param string $param
      */
-    public function deleteHeader($param)
+    public function clearHeader()
     {
-        unset($this->header[$param]);
+        $this->header = array();
     }
 
 
@@ -237,5 +237,22 @@ class NimbleAPIAuthorization
     public function setTokenType($token_type)
     {
         $this->token_type = $token_type;
+    }
+    
+    /**
+     * Method buildAuthorizationHeader, add Authorization header.
+     */
+    public function buildAuthorizationHeader($type = 'basic')
+    {
+        switch ($type){
+            case 'basic':
+                $this->addHeader('Authorization', $this->basic);
+                break;
+            case 'tsec':
+                $this->addHeader('Authorization', $this->token_type . ' ' . $this->access_token);
+                break;
+            default:
+                return;
+        }
     }
 }

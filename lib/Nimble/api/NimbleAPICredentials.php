@@ -22,6 +22,11 @@ class NimbleAPICredentials
         }
     
         try {
+            //HEADERS
+            //$this->authorization->buildAuthorizationHeader('tsec');
+            $NimbleApi->authorization->addHeader('Content-Type', 'application/json');
+            $NimbleApi->authorization->addHeader('Accept', 'application/json');
+            
             $NimbleApi->setUri('check');
             $NimbleApi->method = 'GET';
             $response = $NimbleApi->restApiCall();

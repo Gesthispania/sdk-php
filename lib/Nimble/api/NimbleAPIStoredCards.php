@@ -26,6 +26,11 @@ class NimbleAPIStoredCards {
         }
 
         try {
+            //HEADERS
+            //$this->authorization->buildAuthorizationHeader('tsec');
+            $NimbleApi->authorization->addHeader('Content-Type', 'application/json');
+            $NimbleApi->authorization->addHeader('Accept', 'application/json');
+            
             $NimbleApi->uri = 'payments/storedCards/users/' . $cardHolderId;
             $NimbleApi->method = 'GET';
             $response = $NimbleApi->restApiCall();
@@ -48,6 +53,11 @@ class NimbleAPIStoredCards {
         }
 
         try {
+            //HEADERS
+            //$this->authorization->buildAuthorizationHeader('tsec');
+            $NimbleApi->authorization->addHeader('Content-Type', 'application/json');
+            $NimbleApi->authorization->addHeader('Accept', 'application/json');
+            
             $NimbleApi->setPostfields(json_encode($cardInfo));
             $NimbleApi->uri = 'payments/storedCards/default';
             $NimbleApi->method = 'POST';
@@ -71,6 +81,11 @@ class NimbleAPIStoredCards {
         }
 
         try {
+            //HEADERS
+            //$this->authorization->buildAuthorizationHeader('tsec');
+            $NimbleApi->authorization->addHeader('Content-Type', 'application/json');
+            $NimbleApi->authorization->addHeader('Accept', 'application/json');
+            
             $NimbleApi->setPostfields(json_encode($cardInfo));
             $NimbleApi->uri = 'payments/storedCards';
             $NimbleApi->method = 'DELETE';
@@ -94,6 +109,11 @@ class NimbleAPIStoredCards {
         }
 
         try {
+            //HEADERS
+            //$this->authorization->buildAuthorizationHeader('tsec');
+            $NimbleApi->authorization->addHeader('Content-Type', 'application/json');
+            $NimbleApi->authorization->addHeader('Accept', 'application/json');
+            
             $NimbleApi->setPostfields(json_encode($storedCardPaymentInfo));
             $NimbleApi->uri = 'payments/storedCards';
             $NimbleApi->method = 'POST';

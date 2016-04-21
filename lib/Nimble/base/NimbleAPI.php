@@ -158,6 +158,8 @@ class NimbleAPI
             // Set credentials
             $this->setClientId($settings['clientId']);
             $this->setClientSecret($settings['clientSecret']);
+            $this->authorization->setBasic('Basic ' . base64_encode($this->clientId . ':' . $this->clientSecret));
+            
             // Check if we are on oAuth process by parameter oauth_code
             if (isset($settings['oauth_code'])) {
                 // oAuth process > needs to request token to security server (with oauth_code)
@@ -234,6 +236,7 @@ class NimbleAPI
             $this->setLastStatusCode(curl_getinfo($curl_connect, CURLINFO_HTTP_CODE));
             
             curl_close($curl_connect);
+            $this->clear();
             return $response;
         } catch (Exception $e) {
             throw new Exception('Failed to send Data in restApiCall: ' . $e);
@@ -248,8 +251,6 @@ class NimbleAPI
      */
     public function setGetfields($getfields)
     {
-        $this->postfields = null;
-        
         $search = array(
                 '#',
                 ',',
@@ -262,9 +263,8 @@ class NimbleAPI
                 '%2B',
                 '%3A'
         );
-        $getfields = str_replace($search, $replace, $getfields);
         
-        $this->getfields = $getfields;
+        $this->getfields = str_replace($search, $replace, $getfields);
         
         return $this;
     }
@@ -295,7 +295,6 @@ class NimbleAPI
      */
     public function setPostfields($postfields)
     {
-        //$this->getfields = null;
         $this->postfields = $postfields;
         
         return $this;
@@ -344,25 +343,14 @@ class NimbleAPI
     }
 
     /**
-     * Method clear. Clear all attributes of class NimbleApi except Object(for example: authorization)
+     * Method clear. Clear temporal attributes after restApiCall
      */
     public function clear()
     {
-        try {
-            foreach ($this as $key => &$valor) {
-                eval('$isArray=is_array($this->' . $key . ');');
-                eval('$isObject=is_object($this->' . $key . ');');
-                if (! $isObject) {
-                    if ($isArray) {
-                        eval('$this->' . $key . '=array();');
-                    } else {
-                        eval('$this->' . $key . '=null;');
-                    }
-                }
-            }
-        } catch (Exception $e) {
-            throw new Exception('Failed to clear attrubutes: ' . $e);
-        }
+        $this->uri = '';
+        $this->getfields = null;
+        $this->postfields = null;
+        $this->authorization->clearHeader();
     }
     
     /**
@@ -371,7 +359,11 @@ class NimbleAPI
      */
     public function getHeaders ()
     {
-        $this->authorization->buildAccessHeader();
+        if ($this->uri_oauth){
+            $this->authorization->buildAuthorizationHeader('basic');
+        } else{
+            $this->authorization->buildAuthorizationHeader('tsec');
+        }
         $header = $this->authorization->getHeader();
         return $header;
     }
@@ -428,13 +420,4 @@ class NimbleAPI
         return NimbleAPIConfig::GATEWAY_URL.'?'.http_build_query($params);
         
     }
-    
-    /**
-     * Method buildAuthorizationHeader, add Authorization header.
-     */
-    public function buildAuthorizationHeader()
-    {
-        $this->authorization->addHeader('Authorization', 'Basic ' . base64_encode($this->clientId . ':' . $this->clientSecret));
-    }
-    
 }

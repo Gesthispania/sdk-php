@@ -27,7 +27,7 @@ class NimbleAPIAuth {
         try {
             $NimbleApi->uri_oauth = true;
             //HEADERS
-            $NimbleApi->buildAuthorizationHeader();
+            //$this->authorization->buildAuthorizationHeader('basic');
             $NimbleApi->authorization->addHeader('Content-Type', 'application/json');
             $NimbleApi->authorization->addHeader('Accept', 'application/json');
 
@@ -36,14 +36,10 @@ class NimbleAPIAuth {
             $NimbleApi->method = 'POST';
             
             $response = $NimbleApi->restApiCall();
-
-            $NimbleApi->setGetfields(null);
-
+            
             if (isset($response['result']) && $response['result']['code'] != "200") {
                 switch ($response['result']['code']) {
                     case '401':
-                        // Try to refresh token
-                        break;
                     default:
                         throw new Exception($response['result']['code'] . ' ' . $response['result']['info']);
                 }
@@ -53,7 +49,7 @@ class NimbleAPIAuth {
 
             return true;
         } catch (Exception $e) {
-            throw new Exception('Failed in getAuthorization: ' . $e);
+            throw new Exception('Failed in getBasicAuthorization: ' . $e);
         }
     }
 
@@ -69,7 +65,7 @@ class NimbleAPIAuth {
         try {
             $NimbleApi->uri_oauth = true;
             //HEADERS
-            $NimbleApi->buildAuthorizationHeader();
+            //$this->authorization->buildAuthorizationHeader('basic');
             $NimbleApi->authorization->addHeader('Content-Type', 'application/json');
             $NimbleApi->authorization->addHeader('Accept', 'application/json');
             
@@ -82,8 +78,6 @@ class NimbleAPIAuth {
             if (isset($response['result']) && $response['result']['code'] != "200") {
                 switch ($response['result']['code']) {
                     case '401':
-                        // Try to refresh token
-                        break;
                     default:
                         throw new Exception($response['result']['code'] . ' ' . $response['result']['info']);
                 }
@@ -93,7 +87,7 @@ class NimbleAPIAuth {
 
             return true;
         } catch (Exception $e) {
-            throw new Exception('Failed in getAuthorization: ' . $e);
+            throw new Exception('Failed in getCodeAuthorization: ' . $e);
         }
     }
 
@@ -109,7 +103,7 @@ class NimbleAPIAuth {
         try {
             $NimbleApi->uri_oauth = true;
             //HEADERS
-            $NimbleApi->buildAuthorizationHeader();
+            //$this->authorization->buildAuthorizationHeader('basic');
             
             $NimbleApi->setGetfields('?grant_type=refresh_token');
             $postfields = array(
@@ -126,8 +120,6 @@ class NimbleAPIAuth {
             if (isset($response['result']) && $response['result']['code'] != "200") {
                 switch ($response['result']['code']) {
                     case '401':
-                        // Refresh token expired ?
-                        break;
                     default:
                         throw new Exception($response['result']['code'] . ' ' . $response['result']['info']);
                 }

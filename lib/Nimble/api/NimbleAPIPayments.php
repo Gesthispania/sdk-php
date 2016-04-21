@@ -32,6 +32,11 @@ class NimbleAPIPayments {
         }
 
         try {
+            //HEADERS
+            //$this->authorization->buildAuthorizationHeader('tsec');
+            $NimbleApi->authorization->addHeader('Content-Type', 'application/json');
+            $NimbleApi->authorization->addHeader('Accept', 'application/json');
+
             $NimbleApi->setPostfields(json_encode($context));
             $NimbleApi->uri = 'payments';
             $NimbleApi->method = 'POST';
@@ -60,6 +65,11 @@ class NimbleAPIPayments {
         }
 
         try {
+            //HEADERS
+            //$this->authorization->buildAuthorizationHeader('tsec');
+            $NimbleApi->authorization->addHeader('Content-Type', 'application/json');
+            $NimbleApi->authorization->addHeader('Accept', 'application/json');
+            
             $aux_order = array('customerData' => $new_order_id);
             $NimbleApi->setPostfields(json_encode($aux_order));
             $NimbleApi->uri = 'payments/' . $transaction_id;
@@ -85,11 +95,15 @@ class NimbleAPIPayments {
         }
     
         try {
+            //HEADERS
+            //$this->authorization->buildAuthorizationHeader('tsec');
+            $NimbleApi->authorization->addHeader('Content-Type', 'application/json');
+            $NimbleApi->authorization->addHeader('Accept', 'application/json');
+            
             $NimbleApi->setPostfields(json_encode($refund));
             $NimbleApi->setURI('payments/'.$IdTransaction.'/refund/');
             $NimbleApi->method = 'POST';
             $NimbleApi->authorization->addHeader('Content-Type', 'application/json');
-            $NimbleApi->authorization->buildAccessHeader();
             $response = $NimbleApi->restApiCall();
             if (!is_null($response)) {
                 if (isset($response["data"])) {
