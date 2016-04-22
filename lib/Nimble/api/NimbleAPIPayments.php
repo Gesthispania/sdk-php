@@ -96,6 +96,9 @@ class NimbleAPIPayments {
         if (empty($refund)) {
             throw new Exception('$refund parameter is empty, please enter a refund in sendPaymentRefund');
         }
+        if (empty($IdTransaction)) {
+            throw new Exception('$IdTransaction parameter is empty, please enter a IdTransaction');
+        }
     
         try {
             //HEADERS

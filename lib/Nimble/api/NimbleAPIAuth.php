@@ -21,9 +21,11 @@ class NimbleAPIAuth {
      * @return boolean           wether or not was authorized
      */
     public static function getBasicAuthorization($NimbleApi) {
+        
         if (empty($NimbleApi)) {
             throw new Exception('$NimbleApi parameter is empty');
         }
+        
         try {
             $NimbleApi->uri_oauth = true;
             //HEADERS
@@ -59,9 +61,14 @@ class NimbleAPIAuth {
      * @return boolean           wether or not was authorized
      */
     public static function getCodeAuthorization($NimbleApi, $oauth_code) {
+        
         if (empty($NimbleApi)) {
             throw new Exception('$NimbleApi parameter is empty');
         }
+        if (empty($oauth_code)) {
+            throw new Exception('$oauth_code parameter is empty');
+        }
+        
         try {
             $NimbleApi->uri_oauth = true;
             //HEADERS
@@ -97,9 +104,11 @@ class NimbleAPIAuth {
      * @return boolean            wether the refresh operation was succesfully executed or not
      */
     public static function refreshToken($NimbleApi) {
+        
         if (empty($NimbleApi)) {
             throw new Exception('$NimbleApi parameter is empty');
         }
+        
         try {
             $NimbleApi->uri_oauth = true;
             //HEADERS
