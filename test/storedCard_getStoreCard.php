@@ -1,8 +1,4 @@
 <?php
-//show code
-//highlight_file("/info/payment_send.php");
-?>
-<?php
 require_once '../lib/Nimble/base/NimbleAPI.php';
 require_once '../lib/Nimble/api/NimbleAPIStoredCards.php';
 require_once 'functions.php';
@@ -13,7 +9,7 @@ $payment = array(
          'customerData' => 'idSample12345',
          'paymentSuccessUrl' => 'https://my-commerce.com/payments/success',
          'paymentErrorUrl' => 'https://my-commerce.com/payments/error',
-         'userId' => 'rafa'
+         'userId' => 'idCustomer12345'
         );
 
 $params = array(
@@ -23,10 +19,15 @@ $params = array(
 /* High Level call */
 $NimbleApi = new NimbleAPI($params);
 ?>
-<br /> <pre>
-------------- STORE CARD ----- getStoredCards ----------------------
+<hr />
+<br />
 
-Response:
+<h3 style="background-color: #d0e4fe;">/* params: clientId, clientSecret */<br />
+1.- Called to contructor: NimbleAPI(Array);<br />
+2.- Called to NimbleAPIStoredCards::getStoredCards($NimbleApi, $payment['userId']);</h3>
+<pre>
 <?php
 $response = NimbleAPIStoredCards::getStoredCards($NimbleApi, $payment['userId']);
 var_dump($response);
+?>
+</pre>

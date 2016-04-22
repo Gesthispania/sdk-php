@@ -11,9 +11,11 @@ $params = array(
 $response = new NimbleAPI($params);
 
 ?>
-
-<br /> <pre>
-Response:
+<hr />
+<h3 style="background-color: #d0e4fe;">/* params: clientId, clientSecret */<br/>
+1.- Called to contructor: NimbleAPI(Array);</h3>
+<pre>
 <?php
-var_dump($response);
+    var_dump($response);
 ?>
+</pre>

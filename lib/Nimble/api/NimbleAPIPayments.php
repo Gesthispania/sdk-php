@@ -63,6 +63,9 @@ class NimbleAPIPayments {
         if (empty($transaction_id)) {
             throw new Exception('$payment parameter is empty, please enter a payment');
         }
+        if (empty($new_order_id)) {
+            throw new Exception('$new_order_id parameter is empty, please enter a new_order_id');
+        }
 
         try {
             //HEADERS

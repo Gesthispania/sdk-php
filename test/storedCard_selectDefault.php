@@ -1,17 +1,7 @@
 <?php
-//show code
-//highlight_file("/info/payment_send.php");
-?>
-<?php
 require_once '../lib/Nimble/base/NimbleAPI.php';
 require_once '../lib/Nimble/api/NimbleAPIStoredCards.php';
 require_once 'functions.php';
-
-$payment = array(
-         "cardBrand"=> "VISA",
-         "maskedPan" => "************0004",
-         "cardHolderId" => "rafa"
-        );
 
 $params = array(
         'clientId' => CLIENT_ID,
@@ -20,10 +10,44 @@ $params = array(
 /* High Level call */
 $NimbleApi = new NimbleAPI($params);
 ?>
-<br /> <pre>
-------------- STORE CARD ----- selectDefault ----------------------
-
-Response:
+<hr />
+<br />
+<h3 style="background-color: #d0e4fe;">/* params: clientId, clientSecret */<br />
+1.- Called to contructor: NimbleAPI(Array);<br />
+2.- Called to method NimbleAPIStoredCards::getStoredCards($NimbleApi, 'idCustomer12345');</h3>
+<pre>
 <?php
-$response = NimbleAPIStoredCards::selectDefault($NimbleApi, $payment);
-var_dump($response);
+$responseCard = NimbleAPIStoredCards::getStoredCards($NimbleApi, 'idCustomer12345');
+if(count($responseCard['data']['storedCards'])>0){
+    echo "Select to card: ";
+?>
+    <form method="post">
+        <select name="card_default"> 
+          <?php for($i = 0; $i < count($responseCard['data']['storedCards']); $i++) { ?>
+            <option value="<?php echo base64_encode(json_encode($responseCard['data']['storedCards'][$i]));?>"><?php echo $responseCard['data']['storedCards'][$i]['maskedPan']?></option>
+          <?php } ?>
+        </select>
+        <input type="submit" value="Submit the form"/>
+    </form>    
+<?php
+}
+else
+    echo "There aren't stored cards";
+
+$selectOption = (array)json_decode(base64_decode($_POST['card_default']));
+if(isset($_POST['card_default'])){
+    $cardInfo = array(
+             "cardBrand"=> $selectOption['cardBrand'],
+             "maskedPan" => $selectOption['maskedPan'],
+             "cardHolderId" => "idCustomer12345"
+            );
+?>
+</pre>
+<h3 style="background-color: #d0e4fe;">3.- Called to method NimbleAPIStoredCards::selectDefault($NimbleApi, $cardInfo);</h3>
+<pre>
+<?php
+    $response = NimbleAPIStoredCards::selectDefault($NimbleApi, $cardInfo);
+    var_dump($response);
+}
+?>
+</pre>
