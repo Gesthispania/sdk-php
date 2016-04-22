@@ -128,5 +128,27 @@ class NimbleAPIPayments {
             throw new Exception('Error in sendPaymentRefund: ' . $e);
         }
     }
+    
+    /*
+     * Get Payments
+     */
+    public static function getPaymentList($NimbleApi, $filters)
+    {
+        //TODO
+        
+        //uri_filters = http_build_query($filters);
+        //$NimbleApi->setURI('payments?'.$uri_filters);
+    }
+    
+    
+    /*
+     * Get Payments Summary: Sales summary [last 7 days, last month]
+     */
+    public static function getSummary($NimbleApi, $filters){
+        //TODO
+        
+        //uri_filters = http_build_query($filters);
+        //$NimbleApi->setURI('payments/summary?'.$uri_filters);
+    }
 
 }
