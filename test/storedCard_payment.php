@@ -6,7 +6,7 @@ require_once 'functions.php';
 $payment = array(
            "amount"  => 21,
            "currency" => "EUR",
-           "customerData" => "Stored_card_MY_DB_ID",
+           "customerData" => "Stored_card_MY_DB_ID", //TODO: change by merchantOrderId
            "cardHolderId"  =>  "idCustomer12345"
         );
 
