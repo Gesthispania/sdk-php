@@ -130,17 +130,35 @@ class NimbleAPIPayments {
     }
     
     /*
-     * Get Payments
+     * Get Payments Status
      */
-    public static function getPaymentList($NimbleApi, $filters)
+    public static function getPaymentStatus($NimbleApi, $IdTransaction = null, $filters = array())
     {
-        //TODO
-        
-        //uri_filters = http_build_query($filters);
-        //$NimbleApi->setURI('payments?'.$uri_filters);
+        if (empty($NimbleApi)) {
+            throw new Exception('$NimbleApi parameter is empty.');
+        }
+    
+        try {
+            if ($IdTransaction != null) {
+                $NimbleApi->uri = 'v2/payments/status/' . $IdTransaction;
+            } else if (!empty($filters)) {
+                $NimbleApi->setGetfields('?merchantOrderId=' . $filters);
+                $NimbleApi->uri = 'v2/payments/status';
+            } else {
+                $NimbleApi->uri = 'v2/payments/status';
+            }
+
+            $NimbleApi->authorization->addHeader('Content-Type', 'application/json');
+            $NimbleApi->method = 'GET';
+            $response = $NimbleApi->restApiCall();
+            $NimbleApi->setGetfields(null);
+            
+            return $response;
+        } catch (Exception $e) {
+            throw new Exception('Error in NimbleAPIPayments::getPaymentStatus: ' . $e);
+        }       
     }
-    
-    
+ 
     /*
      * Get Payments Summary: Sales summary [last 7 days, last month]
      */

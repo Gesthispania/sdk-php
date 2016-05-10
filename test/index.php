@@ -22,6 +22,17 @@ and open the template in the editor.
                 </li>
             </ul>
         </div>
+	<div>
+            <h2>NimbleAPIAccount</h2>
+            <ul>
+                <li>
+                    <a href="./account_balanceSummary.php">balanceSummary</a>
+                </li>
+                <li>
+                    <a href="./account_balanceSummary.php">cashOut(Pending)</a>
+                </li>
+            </ul>
+        </div>
         <div>
             <h2>NimbleApiCredentials</h2>
             <ul>
@@ -41,6 +52,9 @@ and open the template in the editor.
                 </li>
                 <li>
                     <a href="./payment_sendPaymentRefund.php">Payment_sendPaymentRefund</a>
+                </li>
+		<li>
+                    <a href="./payment_getPaymentStatus.php">Payment_getPaymentStatus</a>
                 </li>
             </ul>
         </div>

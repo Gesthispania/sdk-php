@@ -14,9 +14,20 @@ class NimbleAPIAccount {
     /*
      * Get Summary from merchant account. Total Available
      */
-    public static function getSummary($NimbleApi){
-        //TODO
-        //$NimbleApi->uri = 'summary';
+    public static function balanceSummary($NimbleApi){
+       
+        if (empty($NimbleApi)) {
+            throw new Exception('$NimbleApi parameter is empty.');
+        }
+    
+        try {
+            $NimbleApi->uri ='v2/balance/summary' ;
+            $NimbleApi->method = 'GET';
+            $response = $NimbleApi->restApiCall();
+            return $response;
+        } catch (Exception $e) {
+            throw new Exception('Error in NimbleAPIAccount::balanceSummary: ' . $e);
+        }
     }
     
     /*
