@@ -4,13 +4,13 @@ require_once '../lib/Nimble/api/NimbleAPIPayments.php';
 require_once 'functions.php';
 
 $payment = array(
-         'amount' => 1010,
-	 'currency' => 'EUR',
-         'customerData' => 'idSample12345',
-         'paymentSuccessUrl' => 'https://my-commerce.com/payments/success',
-         'paymentErrorUrl' => 'https://my-commerce.com/payments/error',
-         'userId' => 'idCustomer12345'
-        );
+    'amount' => 1010,
+    'currency' => 'EUR',
+    'merchantOrderId' => 'idSample12345',
+    'paymentSuccessUrl' => 'https://my-commerce.com/payments/success',
+    'paymentErrorUrl' => 'https://my-commerce.com/payments/error',
+    'cardHolderId' => 'idCustomer12345'
+);
 
 $params = array(
         'clientId' => CLIENT_ID,

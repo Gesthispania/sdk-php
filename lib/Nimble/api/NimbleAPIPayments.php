@@ -38,7 +38,7 @@ class NimbleAPIPayments {
             $NimbleApi->authorization->addHeader('Accept', 'application/json');
 
             $NimbleApi->setPostfields(json_encode($context));
-            $NimbleApi->uri = 'payments';
+            $NimbleApi->uri = 'v2/payments';
             $NimbleApi->method = 'POST';
             $response = $NimbleApi->restApiCall();
             return $response;
@@ -73,9 +73,9 @@ class NimbleAPIPayments {
             $NimbleApi->authorization->addHeader('Content-Type', 'application/json');
             $NimbleApi->authorization->addHeader('Accept', 'application/json');
             
-            $aux_order = array('customerData' => $new_order_id);
+            $aux_order = array('merchantOrderId' => $new_order_id);
             $NimbleApi->setPostfields(json_encode($aux_order));
-            $NimbleApi->uri = 'payments/' . $transaction_id;
+            $NimbleApi->uri = 'v2/payments/' . $transaction_id;
             $NimbleApi->method = 'PUT';
             $response = $NimbleApi->restApiCall();
             return $response;
