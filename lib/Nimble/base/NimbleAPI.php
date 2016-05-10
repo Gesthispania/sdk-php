@@ -62,18 +62,6 @@ class NimbleAPI
     protected $laststatuscode;
 
     /**
-     *
-     * @var int $ attemps (integer contain attempts numbers to a service)
-     */
-    protected $attemps = 0;
-
-    /**
-     *
-     * @var int $ max_attemps (maximum number of attempts at connections)
-     */
-    protected $max_attemps = ConfigSDK::MAX_ATTEMPS;
-    
-    /**
      * 
      * @var bool $ use_curl (if need curl_lib to work)
      */
@@ -163,15 +151,7 @@ class NimbleAPI
             $response = json_decode(curl_exec($curl_connect), true);
 
             $this->setLastStatusCode(curl_getinfo($curl_connect, CURLINFO_HTTP_CODE));
-            $this->getLastStatusCode() == 200 ? $this->setAttemps(0) : $this->attemps ++;
-            
-            // getLastStatusCode() return 0 in timeout
-            if (($this->getLastStatusCode() == 401 or $this->getLastStatusCode() == 403 or $this->getLastStatusCode() == 0)  and
-                $this->getAttemps() <= $this->max_attemps) {
-                $response = $this->rest_api_call();
-            }
 
-            $this->setAttemps(0);
             if ($this->authorization->is_preauthorized_request) {
                 $this->authorization->setAccessParams($response);
             }
@@ -269,17 +249,7 @@ class NimbleAPI
         $this->laststatuscode = $code;
         return $this;
     }
-
-    /**
-     * Method getAttemps.
-     *
-     * @return int. Returns the number of attempts Connection
-     */
-    public function getAttemps ()
-    {
-        return $this->attemps;
-    }
-    
+ 
     /**
      * Method getHeaders
      * @return array. Returns the header to the api rest call
@@ -317,17 +287,6 @@ class NimbleAPI
        return $url;
     }
 
-    /**
-     * Method setAttemps
-     *
-     * @param int $attemps.
-     * @return NimbleAPI object. Modifies the number of attempts Connection
-     */
-    public function setAttemps ($attemps)
-    {
-        $this->attemps = $attemps;
-        return $this;
-    }
 
     /**
      * Method clear. Clear all attributes of class NimbleApi except Object(for example: authorization)
