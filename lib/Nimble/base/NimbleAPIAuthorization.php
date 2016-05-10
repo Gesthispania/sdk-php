@@ -226,7 +226,7 @@ class NimbleAPIAuthorization
      */
     public function getTokenType()
     {
-        return $this->access_token;
+        return $this->token_type;
     }
 
     /**
