@@ -150,5 +150,36 @@ class NimbleAPIPayments {
         //uri_filters = http_build_query($filters);
         //$NimbleApi->setURI('payments/summary?'.$uri_filters);
     }
+    
+    /**
+     * Method getPayment
+     *
+     * @param object $NimbleApi
+     * @param array $transaction_id
+     * @return array
+     */
+    public static function getPayment($NimbleApi, $transaction_id) {
+
+        if (empty($NimbleApi)) {
+            throw new Exception('$NimbleApi parameter is empty.');
+        }
+        if (empty($transaction_id)) {
+            throw new Exception('$payment parameter is empty, please enter a payment');
+        }
+
+        try {
+            //HEADERS
+            //$this->authorization->buildAuthorizationHeader('tsec');
+            $NimbleApi->authorization->addHeader('Content-Type', 'application/json');
+            $NimbleApi->authorization->addHeader('Accept', 'application/json');
+            
+            $NimbleApi->uri = 'v2/payments/' . $transaction_id;
+            $NimbleApi->method = 'GET';
+            $response = $NimbleApi->restApiCall();
+            return $response;
+        } catch (Exception $e) {
+            throw new Exception('Error in getPayment: ' . $e);
+        }
+    }
 
 }
