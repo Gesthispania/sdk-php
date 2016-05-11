@@ -59,6 +59,33 @@ and open the template in the editor.
 		<li>
                     <a href="./payment_getPaymentStatus.php">Payment_getPaymentStatus</a>
                 </li>
+		<li>
+                    <a href="./payment_getPayments.php">Payment_getPayments (list payments)</a>
+                </li>
+		<li>
+                    <a href="./payment_getPaymentsDate.php">Payment_getPaymentsDate (list payments by Date)</a>
+                </li>
+		<li>
+                    <a href="./payment_getPaymentsMerchant.php">Payment_getPaymentsMerchant(list payments by MerchantOrderId)</a>
+                </li>
+		<li>
+                    <a href="./payment_getPaymentState.php">Payment_getPaymentState(list payments by State)</a>
+                </li>
+		<li>
+                    <a href="./payment_getPaymentsRefund.php">Payment_getPaymentsRefund(list payments by Refund)</a>
+                </li>
+		<li>
+                    <a href="./payment_getPaymentsDisputes.php">Payment_getPaymentsDisputes(list payments by Disputes)</a>
+                </li>
+		<li>
+                    <a href="./payment_getPaymentsReference.php">Payment_getPaymentsReference(list payments by Reference)</a>
+                </li>
+		<li>
+                    <a href="./payment_getPaymentsPagination.php">Payment_getPaymentsPagination(list payments by Pagination)</a>
+                </li>
+		<li>
+                    <a href="./payment_getPaymentsDisputesId.php">Payment_getPaymentsDisputes(Payments disputes)</a>
+                </li>
             </ul>
         </div>
         <div>

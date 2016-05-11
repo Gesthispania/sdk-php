@@ -7,8 +7,6 @@ if (file_exists('gateway_config.php')) {
     include 'gateway_config.php';
     
     if(isset($_REQUEST["session_token"])){
-        error_log("entra en request");
-        error_log($_REQUEST["session_token"]);
        $_SESSION["session_token"] = $_REQUEST["session_token"];
     }
 }
