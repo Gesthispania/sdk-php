@@ -11,7 +11,7 @@ $params = array(
 ?>
 <hr />
 <br />
-<h3 style="background-color: #d0e4fe;">/* params: clientId, clientSecret<br />
+<h3 style="background-color: #d0e4fe;">/* params: clientId, clientSecret, token<br />
 1.- Called to contructor: NimbleAPI(Array);<br />
 2.- Called to NimbleAPIPayments::sendPaymentRefund($NimbleApi, $transaction_id, $amount);</h3>
 <br />

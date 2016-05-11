@@ -10,7 +10,7 @@ $params = array(
 $params['token'] = $_SESSION['access_token'];
 ?>
 <hr />
-<h3 style="background-color: #d0e4fe;">/* params: clientId, clientSecret<br />
+<h3 style="background-color: #d0e4fe;">/* params: clientId, clientSecret, token<br />
 1.- Called to contructor: NimbleAPI(Array);<br />
 2.- Called to NimbleAPIPayments::getPayments($NimbleApi)</h3>
 <pre>

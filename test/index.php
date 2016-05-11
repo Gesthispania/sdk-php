@@ -29,7 +29,7 @@ and open the template in the editor.
                     <a href="./account_balanceSummary.php">balanceSummary</a>
                 </li>
                 <li>
-                    <a href="./account_balanceSummary.php">cashOut(Pending)</a>
+                    <p>cashOut(Pending)</p>
                 </li>
             </ul>
         </div>
