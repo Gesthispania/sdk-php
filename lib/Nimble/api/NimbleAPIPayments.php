@@ -107,7 +107,7 @@ class NimbleAPIPayments {
             $NimbleApi->authorization->addHeader('Accept', 'application/json');
             
             $NimbleApi->setPostfields(json_encode($refund));
-            $NimbleApi->setURI('payments/'.$IdTransaction.'/refund/');
+            $NimbleApi->setURI('/v2/payments/'.$IdTransaction.'/refund/');
             $NimbleApi->method = 'POST';
             $NimbleApi->authorization->addHeader('Content-Type', 'application/json');
             $response = $NimbleApi->restApiCall();
