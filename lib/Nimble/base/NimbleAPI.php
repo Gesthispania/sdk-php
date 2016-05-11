@@ -10,7 +10,7 @@
 
 require_once 'NimbleAPIConfig.php';
 require_once 'NimbleAPIAuthorization.php';
-require_once '../lib/Nimble/api/NimbleAPIAuth.php';
+require_once 'NimbleAPIAuth.php';
 
 
 /**

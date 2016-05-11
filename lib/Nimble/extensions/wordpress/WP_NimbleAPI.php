@@ -65,6 +65,7 @@ class WP_NimbleAPI extends NimbleAPI{
                 $this->setLastStatusCode($response_status);
             } else {
                 $this->setLastStatusCode(0);
+                $response = array();
             }
             
             return $response;
