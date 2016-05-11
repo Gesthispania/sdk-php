@@ -207,15 +207,15 @@ class NimbleAPIPayments {
      * Method getPayment
      *
      * @param object $NimbleApi
-     * @param array $transaction_id
+     * @param $IdTransaction
      * @return array
      */
-    public static function getPayment($NimbleApi, $transaction_id) {
+    public static function getPayment($NimbleApi, $IdTransaction = null) {
 
         if (empty($NimbleApi)) {
             throw new Exception('$NimbleApi parameter is empty.');
         }
-        if (empty($transaction_id)) {
+        if (empty($IdTransaction)) {
             throw new Exception('$payment parameter is empty, please enter a payment');
         }
 
@@ -225,7 +225,7 @@ class NimbleAPIPayments {
             $NimbleApi->authorization->addHeader('Content-Type', 'application/json');
             $NimbleApi->authorization->addHeader('Accept', 'application/json');
             
-            $NimbleApi->uri = 'v2/payments/' . $transaction_id;
+            $NimbleApi->uri = 'v2/payments/' . $IdTransaction;
             $NimbleApi->method = 'GET';
             $response = $NimbleApi->restApiCall();
             return $response;
@@ -261,6 +261,34 @@ class NimbleAPIPayments {
             return $response;
         } catch (Exception $e) {
             throw new Exception('Error in getPayments: ' . $e);
+        }
+    }
+    
+    /**
+     * Method getPaymentsDisputes
+     *
+     * @param object $NimbleApi
+     * @param $IdTransaction 
+     * @return array
+     */
+    public static function getPaymentsDisputes($NimbleApi, $IdTransaction) {
+
+        if (empty($NimbleApi)) {
+            throw new Exception('$NimbleApi parameter is empty.');
+        }
+        
+         if (empty($IdTransaction)) {
+            throw new Exception('$IdTransaction parameter is empty, please enter a payment');
+        }
+
+        try {
+            $NimbleApi->authorization->addHeader('Content-Type', 'application/json');
+            $NimbleApi->uri = 'v2/payments/' . $IdTransaction . '/disputes';
+            $NimbleApi->method = 'GET';
+            $response = $NimbleApi->restApiCall();
+            return $response;
+        } catch (Exception $e) {
+            throw new Exception('Error in getPaymentsDisputes: ' . $e);
         }
     }
 }
