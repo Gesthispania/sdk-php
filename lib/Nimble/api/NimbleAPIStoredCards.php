@@ -31,7 +31,7 @@ class NimbleAPIStoredCards {
             $NimbleApi->authorization->addHeader('Content-Type', 'application/json');
             $NimbleApi->authorization->addHeader('Accept', 'application/json');
             
-            $NimbleApi->uri = 'payments/storedCards/users/' . $cardHolderId;
+            $NimbleApi->uri = 'payments/storedCards/cardHolders/' . $cardHolderId;
             $NimbleApi->method = 'GET';
             $response = $NimbleApi->restApiCall();
             return $response;
