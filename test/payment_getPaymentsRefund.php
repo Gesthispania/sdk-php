@@ -12,14 +12,14 @@ $params['token'] = $_SESSION['access_token'];
 <hr />
 <h3 style="background-color: #d0e4fe;">/* params: clientId, clientSecret<br />
 1.- Called to contructor: NimbleAPI(Array);<br />
-2.- Called to NimbleAPIPayments::getPaymentsRefund($NimbleApi, $filters)</h3>
+2.- Called to NimbleAPIPayments::getPayments($NimbleApi, $filters)</h3>
 <pre>
 <?php
     $filters = array();
     $filters['hasRefunds'] = true;
     $filters['extendData'] = true;
     $NimbleApi = new NimbleAPI($params);
-    $response2 = NimbleAPIPayments::getPaymentsRefund($NimbleApi, $filters);
+    $response2 = NimbleAPIPayments::getPayments($NimbleApi, $filters);
     var_dump($response2);
 ?>
 </pre>

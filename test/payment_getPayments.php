@@ -7,7 +7,7 @@ $params = array(
         'clientId' => CLIENT_ID,
         'clientSecret' => CLIENT_SECRET
 );
-$params['token'] = base64_decode($_SESSION['access_token']);
+$params['token'] = $_SESSION['access_token'];
 ?>
 <hr />
 <h3 style="background-color: #d0e4fe;">/* params: clientId, clientSecret<br />
