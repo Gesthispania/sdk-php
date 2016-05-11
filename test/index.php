@@ -53,6 +53,9 @@ and open the template in the editor.
                 <li>
                     <a href="./payment_sendPaymentRefund.php">Payment_sendPaymentRefund</a>
                 </li>
+                <li>
+                    <a href="./payment_getPaymentRefunds.php">Payment_getPaymentRefunds</a>
+                </li>
 		<li>
                     <a href="./payment_getPaymentStatus.php">Payment_getPaymentStatus</a>
                 </li>

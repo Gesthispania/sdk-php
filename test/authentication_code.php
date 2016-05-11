@@ -58,9 +58,10 @@ if (isset($_REQUEST['code'])):
     <pre>RefreshToken:  <?php echo ($NimbleApi->authorization->getRefreshToken());?> </pre>
     
     <hr>
-    <h4>BASE64 OAUTH3 TOKEN: </h4>
-    <textarea rows="6" cols="100" id="url_field"><?php echo base64_encode($NimbleApi2->authorization->getAccessToken()); ?></textarea>
-    <input id="copy_btn" type="button" value="copy"/>
+    <h4>ACCESS TOKEN: </h4>
+    <span><?php echo $NimbleApi2->authorization->getAccessToken(); ?></span>
+    <h4>REFRESH TOKEN: </h4>
+    <span><?php echo $NimbleApi2->authorization->getRefreshToken(); ?></span>
     
     <script>
           var copyBtn = document.querySelector('#copy_btn');
@@ -80,7 +81,8 @@ if (isset($_REQUEST['code'])):
     </script>
     
     <?php
-    $_POST["session_token"] = base64_encode($NimbleApi2->authorization->getAccessToken());
+    $_SESSION["access_token"] = $NimbleApi2->authorization->getAccessToken();
+    $_SESSION["refresh_token"] = $NimbleApi2->authorization->getRefreshToken();
 endif;
 
 ?>

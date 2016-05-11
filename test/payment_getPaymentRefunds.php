@@ -13,7 +13,7 @@ $params = array(
 <br />
 <h3 style="background-color: #d0e4fe;">/* params: clientId, clientSecret<br />
 1.- Called to contructor: NimbleAPI(Array);<br />
-2.- Called to NimbleAPIPayments::sendPaymentRefund($NimbleApi, $transaction_id, $amount);</h3>
+2.- Called to NimbleAPIPayments::getPaymentRefunds($NimbleApi, $transaction_id, $amount);</h3>
 <br />
 <form action="#">
     <label title="Get from payment_send.php test">TRANSACTION_ID: <input type="text" name="transaction_id"/></label> <br/><br/>
@@ -26,14 +26,10 @@ $params = array(
 <?php
 if ( isset($_REQUEST['transaction_id']) && isset($_SESSION['access_token']) ):
     /* High Level call */
-    $amount = array ("amount" => 300,
-                     "concept"=> "Shoes",
-                     "reason" => "REQUEST_BY_CUSTOMER");
-
     $transaction_id = $_REQUEST['transaction_id'];
-    $params['token'] = $_SESSION['access_token'];
+    $params['token'] = $_SESSION["access_token"];
     $NimbleApi = new NimbleAPI($params);
-    $response2 = NimbleAPIPayments::sendPaymentRefund($NimbleApi, $transaction_id, $amount);
+    $response2 = NimbleAPIPayments::getPaymentRefunds($NimbleApi, $transaction_id);
     var_dump($response2);
 endif;
 ?>

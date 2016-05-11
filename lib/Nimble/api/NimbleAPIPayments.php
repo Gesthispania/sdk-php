@@ -129,6 +129,35 @@ class NimbleAPIPayments {
         }
     }
     
+    /**
+     * Method getPaymentRefunds
+     */
+    public static function getPaymentRefunds($NimbleApi, $IdTransaction)
+    {
+    
+        if (empty($NimbleApi)) {
+            throw new Exception('$NimbleApi parameter is empty in getPaymentRefunds.');
+        }
+        if (empty($IdTransaction)) {
+            throw new Exception('$IdTransaction parameter is empty, please enter a IdTransaction');
+        }
+    
+        try {
+            //HEADERS
+            //$this->authorization->buildAuthorizationHeader('tsec');
+            $NimbleApi->authorization->addHeader('Content-Type', 'application/json');
+            $NimbleApi->authorization->addHeader('Accept', 'application/json');
+            
+            $NimbleApi->setURI('payments/'.$IdTransaction.'/refunds/');
+            $NimbleApi->method = 'GET';
+            $NimbleApi->authorization->addHeader('Content-Type', 'application/json');
+            $response = $NimbleApi->restApiCall();
+            return $response;
+        } catch (Exception $e) {
+            throw new Exception('Error in getPaymentRefunds: ' . $e);
+        }
+    }
+    
     /*
      * Get Payments Status
      */
