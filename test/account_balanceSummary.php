@@ -26,15 +26,8 @@ $params = array(
 
 <pre>    
 <?php
-if(isset($_REQUEST['token'])){
-    $params['token'] = base64_decode($_REQUEST['token']);
-    //$params['token'] = base64_decode($_SESSION["session_token"]);
-    $NimbleApi = new NimbleAPI($params);
-    $response = NimbleAPIAccount::balanceSummary($NimbleApi);
-    var_dump($response);
-}else{
-    //$params['token'] = base64_decode($_REQUEST['token']);
-    $params['token'] = base64_decode($_SESSION["session_token"]);
+if(isset($_SESSION['access_token'])){
+    $params['token'] = $_SESSION['access_token'];
     $NimbleApi = new NimbleAPI($params);
     $response = NimbleAPIAccount::balanceSummary($NimbleApi);
     var_dump($response);
