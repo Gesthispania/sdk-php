@@ -84,7 +84,7 @@ and open the template in the editor.
                     <a href="./payment_getPaymentsPagination.php">Payment_getPaymentsPagination(list payments by Pagination)</a>
                 </li>
 		<li>
-                    <a href="./payment_getPaymentsDisputesId.php">Payment_getPaymentsDisputes(Payments disputes)</a>
+                    <a href="./payment_getPaymentsDisputesId.php">Payment_getPaymentsDisputesId(Payments disputes)</a>
                 </li>
             </ul>
         </div>

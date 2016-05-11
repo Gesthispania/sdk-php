@@ -16,7 +16,7 @@ $params['token'] = $_SESSION['access_token'];
 <pre>
 <?php
     $filters = array();
-    $filters['hasDisputes'] = true;
+    $filters['hasDisputes'] = 'true';
     $NimbleApi = new NimbleAPI($params);
     $response2 = NimbleAPIPayments::getPayments($NimbleApi, $filters);
     var_dump($response2);
