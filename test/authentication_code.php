@@ -80,7 +80,7 @@ if (isset($_REQUEST['code'])):
     </script>
     
     <?php
-    $_POST["session_token"] = base64_encode($NimbleApi2->authorization->getAccessToken());
+    $_SESSION["session_token"] = base64_encode($NimbleApi2->authorization->getAccessToken());
 endif;
 
 ?>

@@ -129,8 +129,14 @@ class NimbleAPIPayments {
         }
     }
     
-    /*
-     * Get Payments Status
+
+     /**
+     * Method getPaymentStatus
+     *
+     * @param object $NimbleApi
+     * @param $IdTransaction 
+     * @param array $filters
+     * @return array
      */
     public static function getPaymentStatus($NimbleApi, $IdTransaction = null, $filters = array())
     {
@@ -199,5 +205,34 @@ class NimbleAPIPayments {
             throw new Exception('Error in getPayment: ' . $e);
         }
     }
+    
+    /**
+     * Method getPayments
+     *
+     * @param object $NimbleApi
+     * @param array $filters (fromDate, toDate, merchantOrderId, state, hasRefunds, extendedData, hasDisputes,
+     *                        entryReference, itemReference, itemsPerPage)
+     * @return array
+     */
+    public static function getPayments($NimbleApi, $filters = array()) {
 
+        if (empty($NimbleApi)) {
+            throw new Exception('$NimbleApi parameter is empty.');
+        }
+        
+        try {
+            if (!empty($filters)) {
+                $uri_filters = http_build_query($filters);
+                $NimbleApi->setURI('v2/payments?' . $uri_filters);
+            }else{
+                $NimbleApi->setURI('v2/payments/');
+            }
+            $NimbleApi->authorization->addHeader('Content-Type', 'application/json');
+            $NimbleApi->method = 'GET';
+            $response = $NimbleApi->restApiCall();
+            return $response;
+        } catch (Exception $e) {
+            throw new Exception('Error in getPayments: ' . $e);
+        }
+    }
 }
