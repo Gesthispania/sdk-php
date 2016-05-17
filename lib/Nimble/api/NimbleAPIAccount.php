@@ -35,6 +35,5 @@ class NimbleAPIAccount {
      */
     public static function cashOut($NimbleApi, $transfer){
         //TODO
-        //$NimbleApi->uri = 'cashout';
     }
 }

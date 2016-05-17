@@ -197,9 +197,6 @@ class NimbleAPIPayments {
      */
     public static function getSummary($NimbleApi, $filters){
         //TODO
-        
-        //uri_filters = http_build_query($filters);
-        //$NimbleApi->setURI('payments/summary?'.$uri_filters);
     }
     
     /**
@@ -209,7 +206,7 @@ class NimbleAPIPayments {
      * @param $IdTransaction
      * @return array
      */
-    public static function getPayment($NimbleApi, $IdTransaction = null) {
+    public static function getPayment($NimbleApi, $IdTransaction) {
 
         if (empty($NimbleApi)) {
             throw new Exception('$NimbleApi parameter is empty.');
