@@ -166,18 +166,18 @@ class NimbleAPIPayments {
      * @param array $filters
      * @return array
      */
-    public static function getPaymentStatus($NimbleApi, $IdTransaction = null, $filters = array())
+    public static function getPaymentStatus($NimbleApi, $IdTransaction = null, $merchantOrderId = null)
     {
         if (empty($NimbleApi)) {
             throw new Exception('$NimbleApi parameter is empty.');
         }
     
         try {
-            if ($IdTransaction != null) {
+            if ($IdTransaction) {
                 $NimbleApi->uri = 'v2/payments/status/' . $IdTransaction;
-            } else if (!empty($filters)) {
-                $NimbleApi->setGetfields('?merchantOrderId=' . $filters);
-                $NimbleApi->uri = 'v2/payments/status';
+            } else if ($merchantOrderId) {
+                error_log($merchantOrderId);
+                $NimbleApi->uri = 'v2/payments/status?' . http_build_query(array('merchantOrderId' => $merchantOrderId));
             } else {
                 $NimbleApi->uri = 'v2/payments/status';
             }
