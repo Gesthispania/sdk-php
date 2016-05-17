@@ -16,8 +16,8 @@ $params['token'] = $_SESSION['access_token'];
 <pre>
 <?php
     $filters = array();
-    $filters['hasRefunds'] = true;
-    $filters['extendData'] = true;
+    $filters['hasRefunds'] = 'true';
+    $filters['extendedData'] = 'true';
     $NimbleApi = new NimbleAPI($params);
     $response2 = NimbleAPIPayments::getPayments($NimbleApi, $filters);
     var_dump($response2);

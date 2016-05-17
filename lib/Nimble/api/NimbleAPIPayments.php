@@ -101,20 +101,19 @@ class NimbleAPIPayments {
         }
     
         try {
-            //HEADERS
-            //$this->authorization->buildAuthorizationHeader('tsec');
+
             $NimbleApi->authorization->addHeader('Content-Type', 'application/json');
             $NimbleApi->authorization->addHeader('Accept', 'application/json');
             
             $NimbleApi->setPostfields(json_encode($refund));
-            $NimbleApi->setURI('/v2/payments/'.$IdTransaction.'/refund/');
+            $NimbleApi->setURI('v2/payments/'.$IdTransaction.'/refund');
             $NimbleApi->method = 'POST';
-            $NimbleApi->authorization->addHeader('Content-Type', 'application/json');
             $response = $NimbleApi->restApiCall();
             if (!is_null($response)) {
                 if (isset($response["data"])) {
                     return $response;
                 } else {
+                    var_dump($response);
                     if (isset($response["result"]["internal_code"])) {
                         return array("error" => "Error: ". $response["result"]["internal_code"] ." on sendPaymentRefund");
                     } else {
@@ -148,7 +147,7 @@ class NimbleAPIPayments {
             $NimbleApi->authorization->addHeader('Content-Type', 'application/json');
             $NimbleApi->authorization->addHeader('Accept', 'application/json');
             
-            $NimbleApi->setURI('/v2/payments/'.$IdTransaction.'/refunds/');
+            $NimbleApi->setURI('v2/payments/'.$IdTransaction.'/refunds/');
             $NimbleApi->method = 'GET';
             $NimbleApi->authorization->addHeader('Content-Type', 'application/json');
             $response = $NimbleApi->restApiCall();
@@ -198,9 +197,6 @@ class NimbleAPIPayments {
      */
     public static function getSummary($NimbleApi, $filters){
         //TODO
-        
-        //uri_filters = http_build_query($filters);
-        //$NimbleApi->setURI('payments/summary?'.$uri_filters);
     }
     
     /**
@@ -210,7 +206,7 @@ class NimbleAPIPayments {
      * @param $IdTransaction
      * @return array
      */
-    public static function getPayment($NimbleApi, $IdTransaction = null) {
+    public static function getPayment($NimbleApi, $IdTransaction) {
 
         if (empty($NimbleApi)) {
             throw new Exception('$NimbleApi parameter is empty.');
