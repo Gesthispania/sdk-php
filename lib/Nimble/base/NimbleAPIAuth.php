@@ -39,6 +39,8 @@ class NimbleAPIAuth {
             
             $response = $NimbleApi->restApiCall();
             
+            $NimbleApi->setGetfields(null);
+            
             if (isset($response['result']) && $response['result']['code'] != "200") {
                 switch ($response['result']['code']) {
                     case '401':
