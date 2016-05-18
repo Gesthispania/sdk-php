@@ -123,12 +123,12 @@ class NimbleAPIStoredCards {
             
             //If Timeout Error return info of last transaction with the same merchantOrderId
             if (is_null($response)){
-                //error_log("TIMEOUT");
                 $response = NimbleAPIPayments::getPaymentStatus($NimbleApi, null, $storedCardPaymentInfo['merchantOrderId']);
                 if ( isset($response['data']) && isset($response['data']['details']) && count($response['data']['details']) ){
-                    $last_pos = count($response['data']['details']) - 1;
+                    $last_pos = 0;
                     $payment_detail = $response['data']['details'][$last_pos];
                     $response['data']['id'] = $payment_detail['transactionId'];
+                    //error_log(print_r($payment_detail, true));
                     unset($response['data']['details']);
                 }
             }

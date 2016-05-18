@@ -162,7 +162,7 @@ class NimbleAPIPayments {
      *
      * @param object $NimbleApi
      * @param $IdTransaction 
-     * @param array $filters
+     * @param array $merchantOrderId
      * @return array
      */
     public static function getPaymentStatus($NimbleApi, $IdTransaction = null, $merchantOrderId = null)
@@ -175,7 +175,6 @@ class NimbleAPIPayments {
             if ($IdTransaction) {
                 $NimbleApi->uri = 'v2/payments/status/' . $IdTransaction;
             } else if ($merchantOrderId) {
-                error_log($merchantOrderId);
                 $NimbleApi->uri = 'v2/payments/status?' . http_build_query(array('merchantOrderId' => $merchantOrderId));
             } else {
                 $NimbleApi->uri = 'v2/payments/status';
