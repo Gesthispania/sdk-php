@@ -13,7 +13,7 @@ $NimbleApi = new NimbleAPI($params);
 <hr />
 <h3 style="background-color: #d0e4fe;">/* params: clientId, clientSecret, token<br />
 1.- Called to contructor: NimbleAPI(Array);<br />
-2.- Called to NimbleAPIPayments::getPaymentStatus($NimbleApi, $IdTransaction, $filters);</h3>
+2.- Called to NimbleAPIPayments::getPaymentStatus($NimbleApi, $IdTransaction, $merchantOrderId);</h3>
 <pre>
 <?php
 $response = NimbleAPIPayments::getPaymentStatus($NimbleApi);
