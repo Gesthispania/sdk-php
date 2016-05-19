@@ -103,6 +103,9 @@ and open the template in the editor.
                 <li>
                     <a href="./storedCard_delete.php">deleteCard</a>
                 </li>
+		<li>
+                    <a href="./storedCard_deleteAllCards.php">deleteAllCards</a>
+                </li>
             </ul>
         </div>
     </body>

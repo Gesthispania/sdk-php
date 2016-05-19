@@ -137,4 +137,35 @@ class NimbleAPIStoredCards {
             throw new Exception('Error in payment: ' . $e);
         }
     }
+    
+    /*
+     * delete all stored customer cards
+     * return true o false
+     */
+    public static function deleteAllCards($NimbleApi, $cardHolderId){
+        $response = false;
+        $cardInfo = self::getStoredCards($NimbleApi, $cardHolderId);
+        
+        // new customer
+        if(isset($cardInfo['result']) && isset($cardInfo['result']['code']) &&  (404 == $cardInfo['result']['code'])){
+            return true;
+        }
+        // recurrent customer
+        if ( isset($cardInfo['data']) && isset($cardInfo['data']['storedCards'])){
+            $response = true;
+            if(count($cardInfo['data']['storedCards']) == 0 ){
+                return true;
+            }
+            
+            for($i = 0; $i < count($cardInfo['data']['storedCards']); $i++){
+                unset( $cardInfo['data']['storedCards'][$i]['default']);
+                $cardInfo['data']['storedCards'][$i]['cardHolderId'] = $cardHolderId ;
+                $deleteCard = self::deleteCard($NimbleApi, $cardInfo['data']['storedCards'][$i]);
+                if(!isset($deleteCard['result']) || ! isset($deleteCard['result']['code']) || (200 != $deleteCard['result']['code']) )
+                    return false;
+            }
+        } 
+        
+        return $response;
+    }
 }
