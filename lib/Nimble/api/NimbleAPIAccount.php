@@ -34,6 +34,27 @@ class NimbleAPIAccount {
      * CashOut
      */
     public static function cashOut($NimbleApi, $transfer){
-        //TODO
+        
+        if (empty($NimbleApi)) {
+            throw new Exception('$NimbleApi parameter is empty.');
+        }
+        
+        if (empty($transfer)) {
+            throw new Exception('$transfer parameter is empty, please enter a $transfer');
+        }
+    
+        try {
+            //HEADERS
+            //$this->authorization->buildAuthorizationHeader('tsec');
+            $NimbleApi->authorization->addHeader('Content-Type', 'application/json');
+            
+            $NimbleApi->setPostfields(json_encode($transfer));
+            $NimbleApi->uri ='v2/cashout' ;
+            $NimbleApi->method = 'POST';
+            $response = $NimbleApi->restApiCall();
+            return $response;
+        } catch (Exception $e) {
+            throw new Exception('Error in NimbleAPIAccount::cashOut: ' . $e);
+        }
     }
 }
