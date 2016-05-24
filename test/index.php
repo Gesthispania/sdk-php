@@ -20,6 +20,9 @@ and open the template in the editor.
                 <li>
                     <a href="./authentication_code.php">authentication_code</a>
                 </li>
+                <li>
+                    <a href="./authentication_refreshToken.php">authentication_refreshToken</a>
+                </li>
             </ul>
         </div>
 	<div>
