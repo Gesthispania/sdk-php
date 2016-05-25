@@ -421,6 +421,20 @@ class NimbleAPI
         
     }
     
+    /*
+     * Get OTP url
+     */
+    static public function getOTPUrl($ticket, $back_url) {
+        $params = array(
+            'ticket' => $ticket,
+            'back_url' => $back_url
+            
+        );
+        
+        return NimbleAPIConfig::OTP_URL.'?'.http_build_query($params);
+        
+    }
+    
     public function changeDefaultLanguage($lang_code){
         $this->authorization->setLang($lang_code);
     }

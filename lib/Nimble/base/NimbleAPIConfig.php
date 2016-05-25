@@ -26,6 +26,7 @@ class NimbleAPIConfig
      */
     const OAUTH_URL = "https://www.nimblepayments.com/auth/tsec/token";
     const OAUTH3_URL_AUTH = "https://www.nimblepayments.com/auth/tsec/authorize";
+    const OTP_URL = "https://www.nimblepayments.com/auth/otp";
 
     /**
      *
