@@ -57,6 +57,8 @@ class NimbleAPIAuthorization
      * @var string
      */
     private $scope;
+    
+    private $lang = 'es';
 
     /**
      * Method getBasic
@@ -87,6 +89,14 @@ class NimbleAPIAuthorization
     public function addHeader($param, $content)
     {
         $this->header[$param] = $content;
+    }
+    
+    /**
+     * Function addLanguageHeader, add the Accept-Language header
+     */
+    public function addLanguageHeader()
+    {
+        $this->header['Accept-Language'] = $this->lang;
     }
 
     /**
@@ -253,6 +263,16 @@ class NimbleAPIAuthorization
                 break;
             default:
                 return;
+        }
+    }
+    
+    /**
+     * Function setLang
+     */
+    public function setLang($lang_code){
+        $accepted_langs = array('es', 'en', 'de', 'it', 'pt');
+        if (in_array($lang_code, $accepted_langs)){
+            $this->lang = $lang_code;
         }
     }
 }

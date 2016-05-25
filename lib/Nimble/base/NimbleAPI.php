@@ -420,4 +420,8 @@ class NimbleAPI
         return NimbleAPIConfig::GATEWAY_URL.'?'.http_build_query($params);
         
     }
+    
+    public function changeDefaultLanguage($lang_code){
+        $this->authorization->setLang($lang_code);
+    }
 }

@@ -36,6 +36,7 @@ class NimbleAPIPayments {
             //$this->authorization->buildAuthorizationHeader('tsec');
             $NimbleApi->authorization->addHeader('Content-Type', 'application/json');
             $NimbleApi->authorization->addHeader('Accept', 'application/json');
+            $NimbleApi->authorization->addLanguageHeader();
 
             $NimbleApi->setPostfields(json_encode($context));
             $NimbleApi->uri = 'v2/payments';
