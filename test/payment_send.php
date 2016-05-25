@@ -18,11 +18,13 @@ $params = array(
 );
 /* High Level call */
 $NimbleApi = new NimbleAPI($params);
+$NimbleApi->changeDefaultLanguage('es');
 ?>
 <hr />
 <h3 style="background-color: #d0e4fe;">/* params: clientId, clientSecret<br />
 1.- Called to contructor: NimbleAPI(Array);<br />
-2.- Called to NimbleAPIPayments::SendPaymentClient($NimbleApi, $payment);</h3>
+2.- Change default lang NimbleApi->changeDefaultLanguage($lang_code); /* accepted languages ['en', 'es'] */<br />
+3.- Called to NimbleAPIPayments::SendPaymentClient($NimbleApi, $payment);</h3>
 <pre>
 <?php
 $response = NimbleAPIPayments::SendPaymentClient($NimbleApi, $payment);
