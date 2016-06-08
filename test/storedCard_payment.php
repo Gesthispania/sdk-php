@@ -21,11 +21,16 @@ $NimbleApi = new NimbleAPI($params);
 <br />
 <h3 style="background-color: #d0e4fe;">/* params: clientId, clientSecret */<br />
 1.- Called to contructor: NimbleAPI(Array);<br />
-2.- Called to NimbleAPIStoredCards::payment($NimbleApi, $payment);</h3>
+2.- Called to NimbleAPIStoredCards::preorderPayment($NimbleApi, $payment);<br />
+3.- Called to NimbleAPIStoredCards::confirmPayment($NimbleApi, $preorderData);</h3>
 
 <pre>
 <?php
-$response = NimbleAPIStoredCards::payment($NimbleApi, $payment);
+$preorder = NimbleAPIStoredCards::preorderPayment($NimbleApi, $payment);
+var_dump($preorder);
+if (isset($preorder['data'])){
+    $response = NimbleAPIStoredCards::confirmPayment($NimbleApi, $preorder['data']);
+}
 var_dump($response);
 ?>
 </pre>

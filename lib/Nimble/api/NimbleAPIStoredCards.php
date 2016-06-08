@@ -99,9 +99,9 @@ class NimbleAPIStoredCards {
     }
     
     /*
-     * Make payment for a customer with default stored card
+     * Preorder payment for a customer with default stored card
      */
-    public static function payment($NimbleApi, $storedCardPaymentInfo){
+    public static function preorderPayment($NimbleApi, $storedCardPaymentInfo){
         
         if (empty($NimbleApi)) {
             throw new Exception('$NimbleApi parameter is empty.');
@@ -117,24 +117,40 @@ class NimbleAPIStoredCards {
             $NimbleApi->authorization->addHeader('Accept', 'application/json');
             
             $NimbleApi->setPostfields(json_encode($storedCardPaymentInfo));
+            $NimbleApi->uri = 'payments/storedCards/preorder';
+            $NimbleApi->method = 'POST';
+            $response = $NimbleApi->restApiCall();
+            return $response;
+        } catch (Exception $e) {
+            throw new Exception('Error in preorderPayment: ' . $e);
+        }
+    }
+    
+    /*
+     * Make payment for a customer with default stored card
+     */
+    public static function confirmPayment($NimbleApi, $preorderData){
+        
+        if (empty($NimbleApi)) {
+            throw new Exception('$NimbleApi parameter is empty.');
+        }
+        if (empty($preorderData)) {
+            throw new Exception('$preorderData parameter is empty, please enter a $preorderData');
+        }
+
+        try {
+            //HEADERS
+            //$this->authorization->buildAuthorizationHeader('tsec');
+            $NimbleApi->authorization->addHeader('Content-Type', 'application/json');
+            $NimbleApi->authorization->addHeader('Accept', 'application/json');
+            
+            $NimbleApi->setPostfields(json_encode($preorderData));
             $NimbleApi->uri = 'payments/storedCards';
             $NimbleApi->method = 'POST';
             $response = $NimbleApi->restApiCall();
-            
-            //If Timeout Error return info of last transaction with the same merchantOrderId
-            if (is_null($response)){
-                $response = NimbleAPIPayments::getPaymentStatus($NimbleApi, null, $storedCardPaymentInfo['merchantOrderId']);
-                if ( isset($response['data']) && isset($response['data']['details']) && count($response['data']['details']) ){
-                    $last_pos = 0;
-                    $payment_detail = $response['data']['details'][$last_pos];
-                    $response['data']['id'] = $payment_detail['transactionId'];
-                    //error_log(print_r($payment_detail, true));
-                    unset($response['data']['details']);
-                }
-            }
             return $response;
         } catch (Exception $e) {
-            throw new Exception('Error in payment: ' . $e);
+            throw new Exception('Error in confirmPayment: ' . $e);
         }
     }
     
