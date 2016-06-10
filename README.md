@@ -5,7 +5,12 @@ The NimblePayments SDK for PHP makes it easy to add payment services to your e-c
 
 ## Release notes
 
-### 1.0
+### 2.0.0
+- Restructuring code
+- Implementating new API services
+- Test example code
+
+### 1.0.0
 - First live release
 - It includes the single payment service 
 
@@ -82,8 +87,7 @@ $payment = array(
 // build an array with client API information
 $params = array(
         'clientId' => '729DFCD7A2B4643A0DA3D4A7E537FC6E',
-        'clientSecret' => 'jg26cI3O1mB0$eR&fo6a2TWPmq&gyQoUOG6tClO%VE*N$SN9xX27@R4CTqi*$4EO',
-        'mode' => 'sandbox'
+        'clientSecret' => 'jg26cI3O1mB0$eR&fo6a2TWPmq&gyQoUOG6tClO%VE*N$SN9xX27@R4CTqi*$4EO'
 );
 
 $NimbleApi = new NimbleAPI($params);
