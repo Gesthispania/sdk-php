@@ -39,9 +39,7 @@ A `payment` term refers to an object that contains all the data needed in order 
 - `paymentErrorUrl`: it refers to the callback URL to be redirected when the payment finishes with an error.
 
 ```php
-require_once './nimble-sdk/lib/Nimble/base/NimbleAPI.php';
-use Nimble\Base\NimbleAPI;
-use Nimble\Api\Payments;
+require_once './sdk-php/lib/Nimble/base/NimbleAPI.php';
 
 // build an array with payment information
 $payment = array(
@@ -70,9 +68,7 @@ To generate a Payment you will need to execute the following steps:
 - Use the `SendPaymentClient` method in the class `Payments` to send the payment
 
 ```php
-require_once './nimble-sdk/lib/Nimble/base/NimbleAPI.php';
-use Nimble\Base\NimbleAPI;
-use Nimble\Api\Payments;
+require_once './sdk-php/lib/Nimble/base/NimbleAPI.php';
 
 // build an array with payment information
 $payment = array(
@@ -87,7 +83,7 @@ $payment = array(
 $params = array(
         'clientId' => '729DFCD7A2B4643A0DA3D4A7E537FC6E',
         'clientSecret' => 'jg26cI3O1mB0$eR&fo6a2TWPmq&gyQoUOG6tClO%VE*N$SN9xX27@R4CTqi*$4EO',
-        'mode' => 'Sandbox'
+        'mode' => 'sandbox'
 );
 
 $NimbleApi = new NimbleAPI($params);
