@@ -114,7 +114,6 @@ class NimbleAPIPayments {
                 if (isset($response["data"])) {
                     return $response;
                 } else {
-                    var_dump($response);
                     if (isset($response["result"]["internal_code"])) {
                         return array("error" => "Error: ". $response["result"]["internal_code"] ." on sendPaymentRefund");
                     } else {
