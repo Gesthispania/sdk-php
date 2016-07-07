@@ -89,6 +89,9 @@ and open the template in the editor.
 		<li>
                     <a href="./payment_getPaymentsDisputesId.php">Payment_getPaymentsDisputesId(Payments disputes)</a>
                 </li>
+                <li>
+                    <a href="./payment_getPayment.php">Payment_getPayment(Payment Details)</a>
+                </li>
             </ul>
         </div>
         <div>

@@ -21,8 +21,9 @@ $params = array(
 <?php
 if (isset($_REQUEST['transaction_id'])):
     $transaction_id = $_REQUEST['transaction_id'];
+    $params['token'] = $_SESSION["access_token"];
     $NimbleApi = new NimbleAPI($params);
-    $response2 = NimbleAPIPayments::getPayment($NimbleApi, $transaction_id);
+    $response2 = NimbleAPIPayments::getPayment($NimbleApi, $transaction_id, true);
     var_dump($response2);
 endif;
 ?>

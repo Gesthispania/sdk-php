@@ -205,7 +205,7 @@ class NimbleAPIPayments {
      * @param $IdTransaction
      * @return array
      */
-    public static function getPayment($NimbleApi, $IdTransaction) {
+    public static function getPayment($NimbleApi, $IdTransaction, $extendedData = false) {
 
         if (empty($NimbleApi)) {
             throw new Exception('$NimbleApi parameter is empty.');
@@ -220,7 +220,8 @@ class NimbleAPIPayments {
             $NimbleApi->authorization->addHeader('Content-Type', 'application/json');
             $NimbleApi->authorization->addHeader('Accept', 'application/json');
             
-            $NimbleApi->uri = 'v2/payments/' . $IdTransaction;
+            $query_params = ($extendedData) ? '?extendedData=true' : '';
+            $NimbleApi->uri = 'v2/payments/' . $IdTransaction . $query_params;
             $NimbleApi->method = 'GET';
             $response = $NimbleApi->restApiCall();
             return $response;
